@@ -1,14 +1,14 @@
 import React from "react";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 import { Navbar } from "./Navbar";
 
 export const App: React.FC = () => {
   return (
-    <Flex w="100vw" h="100vh" flexDirection="column">
+    <Stack w="100vw" h="100vh">
       <Navbar />
-      <Box flex="auto" overflow="auto">
+      <Stack flex="auto" overflow="auto">
         <Button colorScheme="purple">Test Button</Button>
-      </Box>
-    </Flex>
+      </Stack>
+    </Stack>
   );
 };
