@@ -1,19 +1,20 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "auth";
 
-interface HistoryLocationState {
+interface LocationState {
   from: {
     pathname: string;
   };
 }
 
 export const Login: React.FC = () => {
-  const history = useHistory<HistoryLocationState>();
+  const history = useHistory();
+  const location = useLocation<LocationState>();
   const auth = useAuth();
 
-  const { from } = history.location.state || { from: { pathname: "/" } };
+  const { from } = location.state || { from: { pathname: "/" } };
 
   console.log(history);
 
