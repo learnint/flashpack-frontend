@@ -1,30 +1,21 @@
 import React from "react";
-import {
-  Box,
-  useColorModeValue,
-  Flex,
-  Heading,
-  Button,
-  IconButton,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, IconButton } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "auth";
+import { useColorScheme } from "theme";
 import { FaUser } from "react-icons/fa";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
 export const Navbar: React.FC = () => {
   const history = useHistory();
   const auth = useAuth();
+  const colorScheme = useColorScheme();
 
   return (
     <>
-      <Box h="2" bgColor={useColorModeValue("purple.600", "purple.300")} />
+      <Box h="2" bgColor={colorScheme} />
       <Flex px="4" py="2" alignItems="center">
-        <Heading
-          color={useColorModeValue("purple.600", "purple.300")}
-          mr="auto"
-          size="md"
-        >
+        <Heading color={colorScheme} mr="auto" size="md">
           Flashpack
         </Heading>
         <ColorModeSwitcher mr="2" />
