@@ -8,11 +8,6 @@ export const Account: React.FC = () => {
   const auth = useAuth();
 
   return (
-    <Button
-      colorScheme="purple"
-      onClick={() => auth.logout(() => history.push("/"))}
-    >
-      Logout
-    </Button>
+    <Button onClick={() => auth.logout(() => history.push("/"))}>Logout</Button>
   );
 };

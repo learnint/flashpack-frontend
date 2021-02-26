@@ -18,10 +18,7 @@ export const Login: React.FC = () => {
   console.log(history);
 
   return (
-    <Button
-      colorScheme="purple"
-      onClick={() => auth.login(() => history.replace(from))}
-    >
+    <Button onClick={() => auth.login(() => history.replace(from))}>
       Login
     </Button>
   );

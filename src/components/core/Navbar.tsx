@@ -30,7 +30,6 @@ export const Navbar: React.FC = () => {
         <ColorModeSwitcher mr="2" />
         {auth.user ? (
           <IconButton
-            colorScheme="purple"
             variant="ghost"
             fontSize="lg"
             icon={<FaUser />}
@@ -39,7 +38,6 @@ export const Navbar: React.FC = () => {
           />
         ) : (
           <Button
-            colorScheme="purple"
             variant="outline"
             fontSize="lg"
             onClick={() => {
