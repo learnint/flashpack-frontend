@@ -1,23 +1,34 @@
 import React from "react";
-import { Button, Stack } from "@chakra-ui/react";
-import { Navbar } from "./Navbar";
+import { Stack } from "@chakra-ui/react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "auth";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Navbar } from "./Navbar";
+import { Login } from "components/pages/login";
 
 export const App: React.FC = () => {
   return (
     <Stack w="100vw" h="100vh">
-      <Navbar />
-      <Stack flex="auto" overflow="auto">
-        <Button colorScheme="purple">Test Button</Button>
-        <Router>
+      <Router>
+        <Navbar />
+        <Stack flex="auto" overflow="auto">
+          <ul>
+            <li>
+              <Link to="/public">Public Page</Link>
+            </li>
+            <li>
+              <Link to="/protected">Protected Page</Link>
+            </li>
+          </ul>
+
           <Switch>
             <Route path="/public">Public</Route>
-            <Route path="/login">Login</Route>
+            <Route path="/login">
+              <Login />
+            </Route>
             <PrivateRoute path="/protected">Protected</PrivateRoute>
           </Switch>
-        </Router>
-      </Stack>
+        </Stack>
+      </Router>
     </Stack>
   );
 };
