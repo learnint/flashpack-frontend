@@ -3,7 +3,7 @@ import { Stack } from "@chakra-ui/react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "auth";
 import { Navbar } from "./Navbar";
-import { Login } from "components/pages/login";
+import { Account, Login } from "components/pages";
 
 export const App: React.FC = () => {
   return (
@@ -25,6 +25,9 @@ export const App: React.FC = () => {
             <Route path="/login">
               <Login />
             </Route>
+            <PrivateRoute path="/account">
+              <Account />
+            </PrivateRoute>
             <PrivateRoute path="/protected">Protected</PrivateRoute>
           </Switch>
         </Stack>

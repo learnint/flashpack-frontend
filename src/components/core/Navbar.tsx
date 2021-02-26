@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
             fontSize="lg"
             icon={<FaUser />}
             aria-label="User Account"
-            onClick={() => auth.logout(() => history.push("/"))}
+            onClick={() => history.push("/account")}
           />
         ) : (
           <Button
