@@ -8,8 +8,6 @@ export const Login: React.FC = () => {
   const { from } = useLocationState();
   const auth = useAuth();
 
-  console.log(history);
-
   return (
     <>
       <Button onClick={() => auth.login(() => history.replace(from))}>
