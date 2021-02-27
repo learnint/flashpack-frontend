@@ -1,20 +1,12 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useAuth } from "auth";
-
-interface LocationState {
-  from: {
-    pathname: string;
-  };
-}
+import { Link, useHistory } from "react-router-dom";
+import { useAuth, useLocationState } from "auth";
 
 export const Login: React.FC = () => {
   const history = useHistory();
-  const location = useLocation<LocationState | undefined>();
+  const { from } = useLocationState();
   const auth = useAuth();
-
-  const { from } = location.state || { from: { pathname: "/" } };
 
   console.log(history);
 
@@ -28,7 +20,7 @@ export const Login: React.FC = () => {
           pathname: "/createAccount",
           state: { from: from },
         }}
-        // replace
+        replace
       >
         Create Account
       </Link>
