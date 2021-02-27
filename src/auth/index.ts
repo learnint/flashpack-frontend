@@ -1,2 +1,3 @@
 export * from "./useAuth";
-export * from "./PrivateRoute";
+export * from "./AuthorizedRoute";
+export * from "./AnonymousRoute";

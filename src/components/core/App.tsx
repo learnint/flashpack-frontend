@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import { PrivateRoute } from "auth";
+import { AnonymousRoute, AuthorizedRoute } from "auth";
 import { Navbar } from "./Navbar";
 import { Account, CreateAccount, Login } from "components/pages";
 
@@ -11,7 +11,14 @@ export const App: React.FC = () => {
       <Router>
         <Navbar />
         <Flex direction="column" flex="auto" overflow="auto">
+          ------------- for testing -------------
           <ul>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/createAccount">Create Account</Link>
+            </li>
             <li>
               <Link to="/public">Public Page</Link>
             </li>
@@ -19,19 +26,21 @@ export const App: React.FC = () => {
               <Link to="/protected">Protected Page</Link>
             </li>
           </ul>
-
+          -----------------------------------------
+          <br />
           <Switch>
-            <Route path="/public">Public</Route>
-            <Route path="/login">
+            <AnonymousRoute path="/login">
               <Login />
-            </Route>
-            <Route path="/createAccount">
+            </AnonymousRoute>
+            <AnonymousRoute path="/createAccount">
               <CreateAccount />
-            </Route>
-            <PrivateRoute path="/account">
+            </AnonymousRoute>
+            <AuthorizedRoute path="/account">
               <Account />
-            </PrivateRoute>
-            <PrivateRoute path="/protected">Protected</PrivateRoute>
+            </AuthorizedRoute>
+            <AuthorizedRoute path="/protected">Protected</AuthorizedRoute>
+            <Route path="/public">Public</Route>
+            <Route path="/">Root</Route>
           </Switch>
         </Flex>
       </Router>

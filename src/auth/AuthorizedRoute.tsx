@@ -2,11 +2,11 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { useAuth } from "auth";
 
-interface PrivateRouteProps {
+interface AuthorizedRouteProps {
   path: string;
 }
 
-export const PrivateRoute: React.FC<PrivateRouteProps> = ({
+export const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({
   children,
   path,
 }) => {
