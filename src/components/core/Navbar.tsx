@@ -19,20 +19,23 @@ export const Navbar: React.FC = () => {
         <Heading color={colorScheme} mr="auto" size="md">
           <Link to="/">Flashpack</Link>
         </Heading>
-        <ColorModeSwitcher />
         {!["/login", "/createAccount"].includes(location.pathname) &&
           (auth.user ? (
             <IconButton
-              ml="2"
+              mr="2"
               variant="ghost"
               fontSize="lg"
               icon={<FaUser />}
               aria-label="User Account"
-              onClick={() => history.push("/account")}
+              onClick={() => {
+                if (location.pathname !== "/account") {
+                  history.push("/account");
+                }
+              }}
             />
           ) : (
             <Button
-              ml="2"
+              mr="2"
               variant="outline"
               fontSize="lg"
               onClick={() => history.push("/login", { from: location })}
@@ -40,6 +43,7 @@ export const Navbar: React.FC = () => {
               Login
             </Button>
           ))}
+        <ColorModeSwitcher />
       </Flex>
     </>
   );
