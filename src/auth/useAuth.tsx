@@ -30,8 +30,8 @@ const useAuthProvider = () => {
 
   const logout = (callback: () => void) => {
     return fakeAuth.signout(() => {
-      setUser(undefined);
       callback();
+      setUser(undefined);
     });
   };
 
