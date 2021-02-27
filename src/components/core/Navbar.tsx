@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
           <Link to="/">Flashpack</Link>
         </Heading>
         <ColorModeSwitcher />
-        {location.pathname !== "/login" &&
+        {!["/login", "/createAccount"].includes(location.pathname) &&
           (auth.user ? (
             <IconButton
               ml="2"
