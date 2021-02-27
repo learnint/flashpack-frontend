@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "auth";
 import { Navbar } from "./Navbar";
@@ -7,10 +7,10 @@ import { Account, CreateAccount, Login } from "components/pages";
 
 export const App: React.FC = () => {
   return (
-    <Stack w="100vw" h="100vh">
+    <Flex w="100vw" h="100vh" direction="column">
       <Router>
         <Navbar />
-        <Stack flex="auto" overflow="auto">
+        <Flex direction="column" flex="auto" overflow="auto">
           <ul>
             <li>
               <Link to="/public">Public Page</Link>
@@ -33,8 +33,8 @@ export const App: React.FC = () => {
             </PrivateRoute>
             <PrivateRoute path="/protected">Protected</PrivateRoute>
           </Switch>
-        </Stack>
+        </Flex>
       </Router>
-    </Stack>
+    </Flex>
   );
 };
