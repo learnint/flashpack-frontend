@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import { AnonymousRoute, AuthorizedRoute } from "auth";
+import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
 import { Account, CreateAccount, Login } from "components/pages";
 

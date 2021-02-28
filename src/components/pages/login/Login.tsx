@@ -1,7 +1,8 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth, useLocationState } from "auth";
+import { useLocationState } from "router";
+import { useAuth } from "auth";
 
 export const Login: React.FC = () => {
   const history = useHistory();
