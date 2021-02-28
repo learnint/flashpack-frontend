@@ -6,10 +6,10 @@ interface Auth {
   logout: (callback: () => void) => void;
 }
 
-const authContext = createContext<Auth | undefined>(undefined);
+const AuthContext = createContext<Auth | undefined>(undefined);
 
 export const useAuth = () => {
-  const context = useContext(authContext);
+  const context = useContext(AuthContext);
 
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
@@ -40,5 +40,5 @@ const useAuthProvider = () => {
 
 export const AuthProvider: React.FC = ({ children }) => {
   const auth = useAuthProvider();
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };
