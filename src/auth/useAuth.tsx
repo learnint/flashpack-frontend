@@ -22,17 +22,13 @@ const useAuthProvider = () => {
   const [user, setUser] = useState<string>();
 
   const login = (callback: () => void) => {
-    return fakeAuth.signin(() => {
-      setUser("user");
-      callback();
-    });
+    setUser("user");
+    callback();
   };
 
   const logout = (callback: () => void) => {
-    return fakeAuth.signout(() => {
-      callback();
-      setUser(undefined);
-    });
+    callback();
+    setUser(undefined);
   };
 
   return {
@@ -45,16 +41,4 @@ const useAuthProvider = () => {
 export const AuthProvider: React.FC = ({ children }) => {
   const auth = useAuthProvider();
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-};
-
-const fakeAuth = {
-  isAuthenticated: false,
-  signin(callback: () => void) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(callback, 100);
-  },
-  signout(callback: () => void) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(callback, 100);
-  },
 };
