@@ -7,6 +7,7 @@ import {
   Button,
   InputGroup,
   InputRightElement,
+  Box,
 } from "@chakra-ui/react";
 import { Field, FieldProps } from "formik";
 
@@ -28,12 +29,13 @@ export const FormInput: React.FC<FormInputProps> = ({
   touched,
 }) => {
   const [show, setShow] = useState(false);
+  const isInvalid = !!error && touched;
 
   return (
     <Field name={name}>
       {/* https://github.com/formium/formik/issues/2086 */}
       {({ field }: FieldProps) => (
-        <FormControl isInvalid={!!error && touched}>
+        <FormControl isInvalid={isInvalid}>
           <FormLabel htmlFor={name}>{label}</FormLabel>
           {type === "password" ? (
             <InputGroup>
@@ -42,9 +44,9 @@ export const FormInput: React.FC<FormInputProps> = ({
                 id={name}
                 placeholder={placeholder}
                 type={show ? "text" : type}
-                pr="4rem"
+                pr="16"
               />
-              <InputRightElement w="4rem">
+              <InputRightElement w="16">
                 <Button size="xs" onClick={() => setShow(!show)}>
                   {show ? "Hide" : "Show"}
                 </Button>
@@ -53,7 +55,13 @@ export const FormInput: React.FC<FormInputProps> = ({
           ) : (
             <Input {...field} id={name} placeholder={placeholder} type={type} />
           )}
-          <FormErrorMessage>{error}</FormErrorMessage>
+          {isInvalid ? (
+            <FormErrorMessage>{error}</FormErrorMessage>
+          ) : (
+            <Box mt="2" fontSize="sm">
+              &nbsp;
+            </Box>
+          )}
         </FormControl>
       )}
     </Field>

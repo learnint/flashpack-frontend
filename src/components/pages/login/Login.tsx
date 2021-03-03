@@ -44,7 +44,7 @@ export const Login: React.FC = () => {
               error={errors.password}
               touched={touched.password}
             />
-            <Button type="submit" isLoading={isSubmitting} w="100%">
+            <Button type="submit" isLoading={isSubmitting} w="100%" mt="2">
               Submit
             </Button>
           </Form>
