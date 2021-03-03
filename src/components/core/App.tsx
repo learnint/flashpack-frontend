@@ -10,8 +10,15 @@ export const App: React.FC = () => {
     <Flex w="100vw" h="100vh" direction="column">
       <Router>
         <Navbar />
-        <Flex direction="column" flex="auto" overflow="auto">
-          ------------- for testing -------------
+        <Flex
+          px="4"
+          py="2"
+          direction="column"
+          align="center"
+          flex="auto"
+          overflow="auto"
+        >
+          {/* ------------- for testing -------------
           <ul>
             <li>
               <Link to="/login">Login</Link>
@@ -27,7 +34,7 @@ export const App: React.FC = () => {
             </li>
           </ul>
           -----------------------------------------
-          <br />
+          <br /> */}
           <Switch>
             <AnonymousRoute path="/login">
               <Login />

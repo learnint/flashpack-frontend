@@ -1,8 +1,12 @@
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import { useLocationState } from "router";
+import * as Yup from "yup";
 import { useAuth } from "auth";
+import { FormInput } from "components/common";
+import { email, password } from "validations";
 
 export const Login: React.FC = () => {
   const history = useHistory();
@@ -10,10 +14,42 @@ export const Login: React.FC = () => {
   const auth = useAuth();
 
   return (
-    <>
-      <Button onClick={() => auth.login(() => history.replace(from))}>
-        Login
-      </Button>
+    <Flex w="100%" maxW="500px" direction="column">
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={Yup.object({ email, password })}
+        onSubmit={(values, actions) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            auth.login(() => history.replace(from));
+            actions.setSubmitting(false);
+          }, 1000);
+        }}
+      >
+        {({ isSubmitting, errors, touched }) => (
+          <Form>
+            <FormInput
+              name="email"
+              label="Email"
+              placeholder="example@address.com"
+              type="email"
+              error={errors.email}
+              touched={touched.email}
+            />
+            <FormInput
+              name="password"
+              label="Password"
+              placeholder="Enter password"
+              type="password"
+              error={errors.password}
+              touched={touched.password}
+            />
+            <Button type="submit" isLoading={isSubmitting} w="100%">
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
       <Link
         to={{
           pathname: "/createAccount",
@@ -23,6 +59,6 @@ export const Login: React.FC = () => {
       >
         Create Account
       </Link>
-    </>
+    </Flex>
   );
 };
