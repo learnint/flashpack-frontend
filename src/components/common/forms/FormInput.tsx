@@ -13,8 +13,8 @@ import { Field, FieldProps } from "formik";
 
 interface FormInputProps {
   name: string;
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   type?: string;
   error: string | undefined;
   touched: boolean | undefined;
@@ -36,7 +36,7 @@ export const FormInput: React.FC<FormInputProps> = ({
       {/* https://github.com/formium/formik/issues/2086 */}
       {({ field }: FieldProps) => (
         <FormControl isInvalid={isInvalid}>
-          <FormLabel htmlFor={name}>{label}</FormLabel>
+          {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
           {type === "password" ? (
             <InputGroup>
               <Input
@@ -56,9 +56,11 @@ export const FormInput: React.FC<FormInputProps> = ({
             <Input {...field} id={name} placeholder={placeholder} type={type} />
           )}
           {isInvalid ? (
-            <FormErrorMessage h={5}>{error}</FormErrorMessage>
+            <FormErrorMessage h="5" mb="1">
+              {error}
+            </FormErrorMessage>
           ) : (
-            <Box mt="2" h={5} />
+            <Box h="5" mt="2" mb="1" />
           )}
         </FormControl>
       )}

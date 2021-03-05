@@ -14,7 +14,7 @@ export const Login: React.FC = () => {
   const auth = useAuth();
 
   return (
-    <Flex w="100%" maxW="500px" direction="column">
+    <Flex w="full" maxW="container.sm" direction="column">
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({ email, password })}
@@ -44,8 +44,8 @@ export const Login: React.FC = () => {
               error={errors.password}
               touched={touched.password}
             />
-            <Button type="submit" isLoading={isSubmitting} w="100%" mt="2">
-              Submit
+            <Button type="submit" isLoading={isSubmitting} w="full" mt="2">
+              Login
             </Button>
           </Form>
         )}
