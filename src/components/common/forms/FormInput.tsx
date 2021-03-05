@@ -56,11 +56,9 @@ export const FormInput: React.FC<FormInputProps> = ({
             <Input {...field} id={name} placeholder={placeholder} type={type} />
           )}
           {isInvalid ? (
-            <FormErrorMessage>{error}</FormErrorMessage>
+            <FormErrorMessage h={5}>{error}</FormErrorMessage>
           ) : (
-            <Box mt="2" fontSize="sm">
-              &nbsp;
-            </Box>
+            <Box mt="2" h={5} />
           )}
         </FormControl>
       )}
