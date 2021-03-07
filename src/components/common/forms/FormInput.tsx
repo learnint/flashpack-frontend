@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FormControl,
   FormLabel,
@@ -9,13 +9,15 @@ import {
   InputRightElement,
   Box,
 } from "@chakra-ui/react";
-import { Field, FieldProps } from "formik";
+import { Field, FieldInputProps, FieldProps } from "formik";
+import { State } from "models";
 
 interface FormInputProps {
   name: string;
   label?: string;
   placeholder?: string;
   type?: string;
+  showState?: State<boolean>;
   error: string | undefined;
   touched: boolean | undefined;
 }
@@ -25,11 +27,34 @@ export const FormInput: React.FC<FormInputProps> = ({
   label,
   placeholder,
   type,
+  showState,
   error,
   touched,
 }) => {
-  const [show, setShow] = useState(false);
   const isInvalid = !!error && touched;
+
+  const renderPasswordInput = (
+    field: FieldInputProps<any>,
+    showState: State<boolean>
+  ) => {
+    const [show, setShow] = showState;
+    return (
+      <InputGroup>
+        <Input
+          {...field}
+          id={name}
+          placeholder={placeholder}
+          type={show ? "text" : type}
+          pr="16"
+        />
+        <InputRightElement w="16">
+          <Button size="xs" onClick={() => setShow(!show)} tabIndex={-1}>
+            {show ? "Hide" : "Show"}
+          </Button>
+        </InputRightElement>
+      </InputGroup>
+    );
+  };
 
   return (
     <Field name={name}>
@@ -37,21 +62,8 @@ export const FormInput: React.FC<FormInputProps> = ({
       {({ field }: FieldProps) => (
         <FormControl isInvalid={isInvalid}>
           {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
-          {type === "password" ? (
-            <InputGroup>
-              <Input
-                {...field}
-                id={name}
-                placeholder={placeholder}
-                type={show ? "text" : type}
-                pr="16"
-              />
-              <InputRightElement w="16">
-                <Button size="xs" onClick={() => setShow(!show)}>
-                  {show ? "Hide" : "Show"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
+          {type === "password" && showState ? (
+            renderPasswordInput(field, showState)
           ) : (
             <Input {...field} id={name} placeholder={placeholder} type={type} />
           )}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Flex } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { Link, useHistory } from "react-router-dom";
@@ -18,6 +18,8 @@ export const CreateAccount: React.FC = () => {
   const history = useHistory();
   const { from } = useLocationState();
   const auth = useAuth();
+
+  const showState = useState<boolean>(false);
 
   return (
     <Flex w="full" maxW="container.sm" direction="column">
@@ -73,6 +75,7 @@ export const CreateAccount: React.FC = () => {
               label="Password"
               placeholder="Enter password"
               type="password"
+              showState={showState}
               error={errors.password}
               touched={touched.password}
             />
@@ -80,6 +83,7 @@ export const CreateAccount: React.FC = () => {
               name="confirmPassword"
               placeholder="Confirm password"
               type="password"
+              showState={showState}
               error={errors.confirmPassword}
               touched={touched.confirmPassword}
             />
