@@ -18,6 +18,7 @@ interface FormInputProps {
   placeholder?: string;
   type?: string;
   showState?: State<boolean>;
+  isDisabled?: boolean;
   error: string | undefined;
   touched: boolean | undefined;
 }
@@ -28,10 +29,12 @@ export const FormInput: React.FC<FormInputProps> = ({
   placeholder,
   type,
   showState,
+  isDisabled,
   error,
   touched,
 }) => {
   const isInvalid = !!error && touched;
+  const variant = isDisabled ? "unstyled" : "filled";
 
   const renderPasswordInput = (
     field: FieldInputProps<any>,
@@ -45,13 +48,17 @@ export const FormInput: React.FC<FormInputProps> = ({
           id={name}
           placeholder={placeholder}
           type={show ? "text" : type}
-          pr="16"
+          variant={variant}
+          isDisabled={isDisabled}
+          pr={!isDisabled ? "16" : "0"}
         />
-        <InputRightElement w="16">
-          <Button size="xs" onClick={() => setShow(!show)} tabIndex={-1}>
-            {show ? "Hide" : "Show"}
-          </Button>
-        </InputRightElement>
+        {!isDisabled ? (
+          <InputRightElement w="16">
+            <Button size="xs" onClick={() => setShow(!show)} tabIndex={-1}>
+              {show ? "Hide" : "Show"}
+            </Button>
+          </InputRightElement>
+        ) : null}
       </InputGroup>
     );
   };
@@ -65,7 +72,14 @@ export const FormInput: React.FC<FormInputProps> = ({
           {type === "password" && showState ? (
             renderPasswordInput(field, showState)
           ) : (
-            <Input {...field} id={name} placeholder={placeholder} type={type} />
+            <Input
+              {...field}
+              id={name}
+              placeholder={placeholder}
+              type={type}
+              variant={variant}
+              isDisabled={isDisabled}
+            />
           )}
           {isInvalid ? (
             <FormErrorMessage h="5" mb="1">
