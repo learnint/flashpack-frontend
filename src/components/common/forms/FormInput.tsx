@@ -68,7 +68,11 @@ export const FormInput: React.FC<FormInputProps> = ({
       {/* https://github.com/formium/formik/issues/2086 */}
       {({ field }: FieldProps) => (
         <FormControl isInvalid={isInvalid}>
-          {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
+          {label ? (
+            <FormLabel htmlFor={name} fontWeight="bold">
+              {label}
+            </FormLabel>
+          ) : null}
           {type === "password" && showState ? (
             renderPasswordInput(field, showState)
           ) : (
