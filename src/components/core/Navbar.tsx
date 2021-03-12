@@ -19,8 +19,8 @@ export const Navbar: React.FC = () => {
         <Heading color={colorScheme} mr="auto" size="md">
           <Link to="/">Flashpack</Link>
         </Heading>
-        {!["/login", "/createAccount"].includes(location.pathname) &&
-          (auth.user ? (
+        {!["/login", "/createAccount"].includes(location.pathname) ? (
+          auth.user ? (
             <IconButton
               mr="2"
               variant="ghost"
@@ -42,7 +42,8 @@ export const Navbar: React.FC = () => {
             >
               Login
             </Button>
-          ))}
+          )
+        ) : null}
         <ColorModeSwitcher />
       </Flex>
     </>
