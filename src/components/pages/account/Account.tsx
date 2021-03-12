@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, Stack } from "@chakra-ui/react";
 import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
 import { useAuth } from "auth";
 import { AccountInfo } from "./AccountInfo";
@@ -21,8 +21,8 @@ export const Account: React.FC = () => {
         <Route path={path}>
           <AccountInfo isEditingState={[isEditing, setIsEditing]} />
           {!isEditing ? (
-            <>
-              <Button onClick={() => setIsEditing(true)} w="full" mt="2">
+            <Stack spacing="2" mt="2">
+              <Button onClick={() => setIsEditing(true)}>
                 Edit Account Info
               </Button>
               <Button onClick={() => history.push(`${url}/changePassword`)}>
@@ -31,7 +31,7 @@ export const Account: React.FC = () => {
               <Button onClick={() => auth.logout(() => history.push("/"))}>
                 Logout
               </Button>
-            </>
+            </Stack>
           ) : null}
         </Route>
       </Switch>
