@@ -17,7 +17,7 @@ interface FormInputProps {
   label?: string;
   placeholder?: string;
   type?: string;
-  showState?: State<boolean>;
+  isShownState?: State<boolean>;
   isDisabled?: boolean;
   error: string | undefined;
   touched: boolean | undefined;
@@ -28,7 +28,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   label,
   placeholder,
   type,
-  showState,
+  isShownState,
   isDisabled,
   error,
   touched,
@@ -38,24 +38,28 @@ export const FormInput: React.FC<FormInputProps> = ({
 
   const renderPasswordInput = (
     field: FieldInputProps<any>,
-    showState: State<boolean>
+    isShownState: State<boolean>
   ) => {
-    const [show, setShow] = showState;
+    const [isShown, setIsShown] = isShownState;
     return (
       <InputGroup>
         <Input
           {...field}
           id={name}
           placeholder={placeholder}
-          type={show ? "text" : type}
+          type={isShown ? "text" : type}
           variant={variant}
           isDisabled={isDisabled}
           pr={!isDisabled ? "16" : "0"}
         />
         {!isDisabled ? (
           <InputRightElement w="16">
-            <Button size="xs" onClick={() => setShow(!show)} tabIndex={-1}>
-              {show ? "Hide" : "Show"}
+            <Button
+              size="xs"
+              onClick={() => setIsShown(!isShown)}
+              tabIndex={-1}
+            >
+              {isShown ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         ) : null}
@@ -73,8 +77,8 @@ export const FormInput: React.FC<FormInputProps> = ({
               {label}
             </FormLabel>
           ) : null}
-          {type === "password" && showState ? (
-            renderPasswordInput(field, showState)
+          {type === "password" && isShownState ? (
+            renderPasswordInput(field, isShownState)
           ) : (
             <Input
               {...field}

@@ -19,7 +19,7 @@ export const CreateAccount: React.FC = () => {
   const { from } = useLocationState();
   const auth = useAuth();
 
-  const showState = useState<boolean>(false);
+  const isShownState = useState<boolean>(false);
 
   return (
     <Flex w="full" maxW="container.sm" direction="column">
@@ -75,7 +75,7 @@ export const CreateAccount: React.FC = () => {
               label="Password"
               placeholder="Enter password"
               type="password"
-              showState={showState}
+              isShownState={isShownState}
               error={errors.password}
               touched={touched.password}
             />
@@ -83,7 +83,7 @@ export const CreateAccount: React.FC = () => {
               name="confirmPassword"
               placeholder="Confirm password"
               type="password"
-              showState={showState}
+              isShownState={isShownState}
               error={errors.confirmPassword}
               touched={touched.confirmPassword}
             />

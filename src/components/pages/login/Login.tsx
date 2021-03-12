@@ -13,7 +13,7 @@ export const Login: React.FC = () => {
   const { from } = useLocationState();
   const auth = useAuth();
 
-  const showState = useState<boolean>(false);
+  const isShownState = useState<boolean>(false);
 
   return (
     <Flex w="full" maxW="container.sm" direction="column">
@@ -43,7 +43,7 @@ export const Login: React.FC = () => {
               label="Password"
               placeholder="Enter password"
               type="password"
-              showState={showState}
+              isShownState={isShownState}
               error={errors.password}
               touched={touched.password}
             />

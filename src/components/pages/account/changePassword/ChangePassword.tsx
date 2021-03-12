@@ -9,7 +9,7 @@ import { oldPassword, newPassword, confirmNewPassword } from "validations";
 export const ChangePassword: React.FC = () => {
   const history = useHistory();
 
-  const showState = useState<boolean>(false);
+  const isShownState = useState<boolean>(false);
 
   return (
     <Formik
@@ -38,7 +38,7 @@ export const ChangePassword: React.FC = () => {
             label="Change Password"
             placeholder="Enter old password"
             type="password"
-            showState={showState}
+            isShownState={isShownState}
             error={errors.oldPassword}
             touched={touched.oldPassword}
           />
@@ -46,7 +46,7 @@ export const ChangePassword: React.FC = () => {
             name="newPassword"
             placeholder="Enter new password"
             type="password"
-            showState={showState}
+            isShownState={isShownState}
             error={errors.newPassword}
             touched={touched.newPassword}
           />
@@ -54,7 +54,7 @@ export const ChangePassword: React.FC = () => {
             name="confirmNewPassword"
             placeholder="Confirm new password"
             type="password"
-            showState={showState}
+            isShownState={isShownState}
             error={errors.confirmNewPassword}
             touched={touched.confirmNewPassword}
           />
