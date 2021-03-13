@@ -1,6 +1,7 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { Route, Switch } from "react-router-dom";
 import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
 import { Account, CreateAccount, Login } from "components/pages";
@@ -8,49 +9,31 @@ import { Account, CreateAccount, Login } from "components/pages";
 export const App: React.FC = () => {
   return (
     <Flex w="100vw" h="100vh" direction="column">
-      <Router>
-        <Navbar />
-        <Flex
-          px="4"
-          py="2"
-          direction="column"
-          align="center"
-          flex="auto"
-          overflow="auto"
-        >
-          {/* ------------- for testing -------------
-          <ul>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/createAccount">Create Account</Link>
-            </li>
-            <li>
-              <Link to="/public">Public Page</Link>
-            </li>
-            <li>
-              <Link to="/protected">Protected Page</Link>
-            </li>
-          </ul>
-          -----------------------------------------
-          <br /> */}
-          <Switch>
-            <AnonymousRoute path="/login">
-              <Login />
-            </AnonymousRoute>
-            <AnonymousRoute path="/createAccount">
-              <CreateAccount />
-            </AnonymousRoute>
-            <AuthorizedRoute path="/account">
-              <Account />
-            </AuthorizedRoute>
-            <AuthorizedRoute path="/protected">Protected</AuthorizedRoute>
-            <Route path="/public">Public</Route>
-            <Route path="/">Root</Route>
-          </Switch>
-        </Flex>
-      </Router>
+      <Navbar />
+      <Flex
+        px="4"
+        py="2"
+        direction="column"
+        align="center"
+        flex="auto"
+        overflow="auto"
+      >
+        <Switch>
+          <AnonymousRoute path="/login">
+            <Login />
+          </AnonymousRoute>
+          <AnonymousRoute path="/createAccount">
+            <CreateAccount />
+          </AnonymousRoute>
+          <AuthorizedRoute path="/account">
+            <Account />
+          </AuthorizedRoute>
+          <AuthorizedRoute path="/protected">Protected</AuthorizedRoute>
+          <Route path="/public">Public</Route>
+          <Route path="/">Root</Route>
+        </Switch>
+      </Flex>
+      <ReactQueryDevtools initialIsOpen={false} />
     </Flex>
   );
 };
