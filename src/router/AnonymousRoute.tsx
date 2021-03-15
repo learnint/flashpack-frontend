@@ -15,7 +15,7 @@ export const AnonymousRoute: React.FC<AnonymousRouteProps> = ({
   return (
     <Route
       path={path}
-      render={() => (!auth.user ? children : <Redirect to="/" />)}
+      render={() => (!auth.accessToken ? children : <Redirect to="/" />)}
     />
   );
 };

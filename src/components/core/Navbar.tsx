@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
           <Link to="/">Flashpack</Link>
         </Heading>
         {!["/login", "/createAccount"].includes(location.pathname) ? (
-          auth.user ? (
+          auth.accessToken ? (
             <IconButton
               mr="2"
               variant="ghost"

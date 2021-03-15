@@ -16,7 +16,7 @@ export const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({
     <Route
       path={path}
       render={({ location }) =>
-        auth.user ? (
+        auth.accessToken ? (
           children
         ) : (
           <Redirect

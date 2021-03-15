@@ -28,9 +28,7 @@ export const Account: React.FC = () => {
               <Button onClick={() => history.push(`${url}/changePassword`)}>
                 Change Password
               </Button>
-              <Button onClick={() => auth.logout(() => history.push("/"))}>
-                Logout
-              </Button>
+              <Button onClick={() => auth.logout()}>Logout</Button>
             </Stack>
           ) : null}
         </Route>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Flex } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLocationState } from "router";
 import * as Yup from "yup";
 import { useAuth } from "auth";
@@ -9,7 +9,6 @@ import { FormInput } from "components/common";
 import { email, password } from "validations";
 
 export const Login: React.FC = () => {
-  const history = useHistory();
   const { from } = useLocationState();
   const auth = useAuth();
 
@@ -20,12 +19,8 @@ export const Login: React.FC = () => {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({ email, password })}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            auth.login(() => history.replace(from));
-            actions.setSubmitting(false);
-          }, 1000);
+        onSubmit={async (values) => {
+          await auth.login(values.email, values.password);
         }}
       >
         {({ isSubmitting, errors, touched }) => (
