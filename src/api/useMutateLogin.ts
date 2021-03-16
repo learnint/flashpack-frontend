@@ -1,19 +1,22 @@
 import { useMutation } from "react-query";
+import { baseUrl } from "./config";
+import { LoginResponse } from "models";
 
 interface PostLoginRequest {
   email: string;
   password: string;
 }
 
-const postLogin = async ({ email, password }: PostLoginRequest) => {
-  const response = await fetch("url", {
+const postLogin = async (request: PostLoginRequest) => {
+  const response = await fetch(`${baseUrl}/login`, {
     method: "POST",
     headers: {
-      Authorization: "Basic " + btoa(`${email}:${password}`),
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(request),
   });
+
   if (response.ok) {
     return response.json();
   } else if (response.status === 401) {
@@ -26,7 +29,7 @@ const postLogin = async ({ email, password }: PostLoginRequest) => {
 };
 
 export const useMutateLogin = () => {
-  return useMutation<string, Error, PostLoginRequest>((request) =>
+  return useMutation<LoginResponse, Error, PostLoginRequest>((request) =>
     postLogin(request)
   );
 };

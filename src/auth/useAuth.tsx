@@ -37,9 +37,9 @@ const useAuthProvider = () => {
   const login = async (email: string, password: string) => {
     try {
       const data = await mutateLogin.mutateAsync({ email, password });
-      // const data = "token";
-      setAccessToken(data);
-      localStorage.setItem("accessToken", data);
+      // const data = { accessToken: "token" };
+      setAccessToken(data.accessToken);
+      localStorage.setItem("accessToken", data.accessToken);
       history.replace(from);
     } catch (error) {
       toast({
