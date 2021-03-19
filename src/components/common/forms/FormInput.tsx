@@ -8,6 +8,7 @@ import {
   InputGroup,
   InputRightElement,
   Box,
+  Spinner,
 } from "@chakra-ui/react";
 import { Field, FieldInputProps, FieldProps } from "formik";
 import { State } from "models";
@@ -19,6 +20,7 @@ interface FormInputProps {
   type?: string;
   isShownState?: State<boolean>;
   isDisabled?: boolean;
+  isLoading?: boolean;
   error: string | undefined;
   touched: boolean | undefined;
 }
@@ -30,6 +32,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   type,
   isShownState,
   isDisabled,
+  isLoading,
   error,
   touched,
 }) => {
@@ -77,17 +80,21 @@ export const FormInput: React.FC<FormInputProps> = ({
               {label}
             </FormLabel>
           ) : null}
-          {type === "password" && isShownState ? (
-            renderPasswordInput(field, isShownState)
+          {!isLoading ? (
+            type === "password" && isShownState ? (
+              renderPasswordInput(field, isShownState)
+            ) : (
+              <Input
+                {...field}
+                id={name}
+                placeholder={placeholder}
+                type={type}
+                variant={variant}
+                isDisabled={isDisabled}
+              />
+            )
           ) : (
-            <Input
-              {...field}
-              id={name}
-              placeholder={placeholder}
-              type={type}
-              variant={variant}
-              isDisabled={isDisabled}
-            />
+            <Spinner />
           )}
           {isInvalid ? (
             <FormErrorMessage h="5" mb="1">
