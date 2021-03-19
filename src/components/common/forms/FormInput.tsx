@@ -94,7 +94,7 @@ export const FormInput: React.FC<FormInputProps> = ({
               />
             )
           ) : (
-            <Spinner />
+            <Spinner size="sm" />
           )}
           {isInvalid ? (
             <FormErrorMessage h="5" mb="1">
