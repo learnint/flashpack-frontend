@@ -4,7 +4,15 @@ const baseUrl =
     : "http://localhost:8080";
 
 export const fetcher = async <T>(path: string, options?: RequestInit) => {
-  const response = await fetch(`${baseUrl}/api${path}`, options);
+  const token = localStorage.getItem("accessToken");
+
+  const response = await fetch(`${baseUrl}/api${path}`, {
+    ...options,
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : undefined),
+      ...options?.headers,
+    },
+  });
 
   if (!response.ok) {
     throw response;
