@@ -1,18 +1,10 @@
-const getBaseUrl = () => {
-  switch (process.env.NODE_ENV) {
-    case "production":
-      return "http://flashpack.learntint.ca";
-    case "development":
-      return "http://localhost:8080/api";
-    default:
-      return "http://localhost:8080/api";
-  }
-};
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "http://flashpack.learntint.ca"
+    : "http://localhost:8080";
 
-export const baseUrl = getBaseUrl();
-
-export const fetcher = async <T>(input: RequestInfo, init?: RequestInit) => {
-  const response = await fetch(input, init);
+export const fetcher = async <T>(path: string, options?: RequestInit) => {
+  const response = await fetch(`${baseUrl}/api${path}`, options);
 
   if (!response.ok) {
     throw response;

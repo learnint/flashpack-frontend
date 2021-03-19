@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { baseUrl, fetcher } from "api/config";
+import { fetcher } from "api/config";
 import { LoginResponse } from "models";
 
 interface PostLoginRequest {
@@ -9,7 +9,7 @@ interface PostLoginRequest {
 
 const postLogin = async (request: PostLoginRequest) => {
   try {
-    return await fetcher<LoginResponse>(`${baseUrl}/login`, {
+    return await fetcher<LoginResponse>("/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
