@@ -1,10 +1,12 @@
 import React, { createContext, useContext } from "react";
+import { useToast } from "@chakra-ui/react";
 import { User } from "models";
 import { useQueryUser } from "api";
 
 interface UserContext {
   user: User | undefined;
   isUserLoading: boolean;
+  isUserError: boolean;
   // createUser: () => Promise<void>;
   // updateUser: () => Promise<void>;
   // changePassword: () => Promise<void>;
@@ -24,8 +26,19 @@ export const useUser = () => {
 };
 
 const useUserProvider = () => {
-  const { data: user, isLoading: isUserLoading } = useQueryUser();
-  return { user, isUserLoading };
+  const toast = useToast();
+
+  const { data, isLoading, isError } = useQueryUser({
+    onError: (error) => {
+      toast({
+        title: error?.message,
+        status: "error",
+        isClosable: true,
+      });
+    },
+  });
+
+  return { user: data, isUserLoading: isLoading, isUserError: isError };
 };
 
 export const UserProvider: React.FC = ({ children }) => {

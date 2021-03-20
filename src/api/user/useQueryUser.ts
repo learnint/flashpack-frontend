@@ -1,8 +1,8 @@
-import { useQuery } from "react-query";
+import { useQuery, UseQueryOptions } from "react-query";
 import { useFetcher } from "api/config";
 import { User } from "models";
 
-export const useQueryUser = () => {
+export const useQueryUser = (options?: UseQueryOptions<User, Error, User>) => {
   const fetcher = useFetcher();
 
   const getUser = async () => {
@@ -19,5 +19,5 @@ export const useQueryUser = () => {
     }
   };
 
-  return useQuery<User, Error>("user", getUser);
+  return useQuery<User, Error>("user", getUser, options);
 };

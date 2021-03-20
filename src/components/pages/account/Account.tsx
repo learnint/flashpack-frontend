@@ -10,7 +10,7 @@ export const Account: React.FC = () => {
   const history = useHistory();
   const { path, url } = useRouteMatch();
   const auth = useAuth();
-  const { isUserLoading } = useUser();
+  const { isUserLoading, isUserError } = useUser();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -26,13 +26,13 @@ export const Account: React.FC = () => {
             <Stack spacing="2" mt="2">
               <Button
                 onClick={() => setIsEditing(true)}
-                isDisabled={isUserLoading}
+                isDisabled={isUserLoading || isUserError}
               >
                 Edit Account Info
               </Button>
               <Button
                 onClick={() => history.push(`${url}/changePassword`)}
-                isDisabled={isUserLoading}
+                isDisabled={isUserLoading || isUserError}
               >
                 Change Password
               </Button>
