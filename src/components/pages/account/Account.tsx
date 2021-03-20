@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Flex, Stack } from "@chakra-ui/react";
 import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
 import { useAuth } from "auth";
+import { useUser } from "context";
 import { AccountInfo } from "./AccountInfo";
 import { ChangePassword } from "./changePassword";
 
@@ -9,6 +10,7 @@ export const Account: React.FC = () => {
   const history = useHistory();
   const { path, url } = useRouteMatch();
   const auth = useAuth();
+  const { isUserLoading } = useUser();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -22,10 +24,16 @@ export const Account: React.FC = () => {
           <AccountInfo isEditingState={[isEditing, setIsEditing]} />
           {!isEditing ? (
             <Stack spacing="2" mt="2">
-              <Button onClick={() => setIsEditing(true)}>
+              <Button
+                onClick={() => setIsEditing(true)}
+                isDisabled={isUserLoading}
+              >
                 Edit Account Info
               </Button>
-              <Button onClick={() => history.push(`${url}/changePassword`)}>
+              <Button
+                onClick={() => history.push(`${url}/changePassword`)}
+                isDisabled={isUserLoading}
+              >
                 Change Password
               </Button>
               <Button onClick={() => auth.logout()}>Logout</Button>

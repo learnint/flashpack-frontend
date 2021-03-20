@@ -2,6 +2,7 @@ import React from "react";
 import { Flex } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Switch } from "react-router-dom";
+import { UserProvider } from "context";
 import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
 import { Account, CreateAccount, Login } from "components/pages";
@@ -26,7 +27,9 @@ export const App: React.FC = () => {
             <CreateAccount />
           </AnonymousRoute>
           <AuthorizedRoute path="/account">
-            <Account />
+            <UserProvider>
+              <Account />
+            </UserProvider>
           </AuthorizedRoute>
           <AuthorizedRoute path="/">Root</AuthorizedRoute>
         </Switch>

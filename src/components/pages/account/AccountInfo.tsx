@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Flex } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { useUser } from "context";
 import { FormInput } from "components/common";
 import { State } from "models";
 import { email, firstName, lastName } from "validations";
@@ -11,14 +12,17 @@ interface AccountInfoProps {
 }
 
 export const AccountInfo: React.FC<AccountInfoProps> = ({ isEditingState }) => {
+  const { user, isUserLoading } = useUser();
+
   const [isEditing, setIsEditing] = isEditingState;
 
   return (
     <Formik
+      enableReinitialize
       initialValues={{
-        firstName: "Jarod",
-        lastName: "Burchill",
-        email: "jburchill3780@conestogac.on.ca",
+        firstName: user?.firstName || "",
+        lastName: user?.lastName || "",
+        email: user?.email || "",
       }}
       validationSchema={Yup.object({
         firstName,
@@ -39,25 +43,25 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({ isEditingState }) => {
           <FormInput
             name="firstName"
             label="First Name"
-            placeholder="John"
             isDisabled={!isEditing}
+            isLoading={isUserLoading}
             error={errors.firstName}
             touched={touched.firstName}
           />
           <FormInput
             name="lastName"
             label="Last Name"
-            placeholder="Smith"
             isDisabled={!isEditing}
+            isLoading={isUserLoading}
             error={errors.lastName}
             touched={touched.lastName}
           />
           <FormInput
             name="email"
             label="Email"
-            placeholder="example@address.com"
             type="email"
             isDisabled={!isEditing}
+            isLoading={isUserLoading}
             error={errors.email}
             touched={touched.email}
           />
