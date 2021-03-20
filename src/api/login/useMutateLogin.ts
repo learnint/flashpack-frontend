@@ -13,7 +13,6 @@ export const useMutateLogin = () => {
       return await fetcher<LoginResponse>("/login", {
         method: "POST",
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(request),
