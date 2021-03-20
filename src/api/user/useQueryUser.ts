@@ -11,6 +11,8 @@ export const useQueryUser = (options?: UseQueryOptions<User, Error, User>) => {
     } catch (error) {
       if (error instanceof Response) {
         switch (error.status) {
+          case 404:
+            throw new Error("Could not find user");
           default:
             throw new Error(`Unknown server error occured: ${error.status}`);
         }
