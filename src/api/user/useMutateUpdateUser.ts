@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useFetcher } from "api/config";
 import { User } from "models";
 
@@ -9,6 +9,8 @@ export interface PutUserRequest {
 }
 
 export const useMutateUpdateUser = () => {
+  const queryClient = useQueryClient();
+
   const fetcher = useFetcher();
 
   const putUser = async (request: PutUserRequest) => {
@@ -33,7 +35,12 @@ export const useMutateUpdateUser = () => {
     }
   };
 
-  return useMutation<User, Error, PutUserRequest>((request) =>
-    putUser(request)
+  return useMutation<User, Error, PutUserRequest>(
+    (request) => putUser(request),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("user");
+      },
+    }
   );
 };
