@@ -12,7 +12,7 @@ interface AccountInfoProps {
 }
 
 export const AccountInfo: React.FC<AccountInfoProps> = ({ isEditingState }) => {
-  const { user, isUserLoading } = useUser();
+  const { user, isUserLoading, updateUser } = useUser();
 
   const [isEditing, setIsEditing] = isEditingState;
 
@@ -29,12 +29,11 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({ isEditingState }) => {
         lastName,
         email,
       })}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
+      onSubmit={async (values) => {
+        const success = await updateUser(values);
+        if (success) {
           setIsEditing(false);
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
+        }
       }}
       onReset={() => setIsEditing(false)}
     >

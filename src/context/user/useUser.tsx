@@ -1,14 +1,14 @@
 import React, { createContext, useContext } from "react";
 import { useToast } from "@chakra-ui/react";
 import { User } from "models";
-import { useQueryUser } from "api";
+import { PutUserRequest, useMutateUpdateUser, useQueryUser } from "api";
 
 interface UserContext {
   user: User | undefined;
   isUserLoading: boolean;
   isUserError: boolean;
   // createUser: () => Promise<void>;
-  // updateUser: () => Promise<void>;
+  updateUser: (user: PutUserRequest) => Promise<boolean>;
   // changePassword: () => Promise<void>;
 }
 
@@ -28,6 +28,8 @@ export const useUser = () => {
 const useUserProvider = () => {
   const toast = useToast();
 
+  const mutateUpdateUser = useMutateUpdateUser();
+
   const { data, isLoading, isError } = useQueryUser({
     onError: (error) => {
       toast({
@@ -38,7 +40,26 @@ const useUserProvider = () => {
     },
   });
 
-  return { user: data, isUserLoading: isLoading, isUserError: isError };
+  const updateUser = async (user: PutUserRequest) => {
+    try {
+      await mutateUpdateUser.mutateAsync(user);
+      return true;
+    } catch (error) {
+      toast({
+        title: error?.message,
+        status: "error",
+        isClosable: true,
+      });
+      return false;
+    }
+  };
+
+  return {
+    user: data,
+    isUserLoading: isLoading,
+    isUserError: isError,
+    updateUser,
+  };
 };
 
 export const UserProvider: React.FC = ({ children }) => {
