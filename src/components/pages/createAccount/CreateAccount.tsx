@@ -38,7 +38,7 @@ export const CreateAccount: React.FC = () => {
           confirmPassword,
         })}
         onSubmit={async (values) => {
-          await auth.login(values.email, values.password);
+          // TODO
         }}
       >
         {({ isSubmitting, errors, touched }) => (

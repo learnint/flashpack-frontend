@@ -2,7 +2,7 @@ import { useMutation } from "react-query";
 import { fetcher } from "api/config";
 import { LoginResponse } from "models";
 
-interface PostLoginRequest {
+export interface PostLoginRequest {
   email: string;
   password: string;
 }

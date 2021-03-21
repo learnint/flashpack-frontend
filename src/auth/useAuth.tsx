@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useQueryClient } from "react-query";
-import { useHistory } from "react-router-dom";
-import { useLocationState } from "router";
-import { useMutateLogin } from "api";
+import { PostLoginRequest, useMutateLogin } from "api";
 
 interface AuthContext {
   accessToken: string | undefined;
-  login: (email: string, password: string) => Promise<void>;
+  login: (loginRequest: PostLoginRequest) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -25,9 +23,6 @@ export const useAuth = () => {
 };
 
 const useAuthProvider = () => {
-  const history = useHistory();
-  const { from } = useLocationState();
-
   const queryClient = useQueryClient();
   const mutateLogin = useMutateLogin();
 
@@ -37,24 +32,23 @@ const useAuthProvider = () => {
     localStorage.getItem("accessToken") || undefined
   );
 
-  const login = async (email: string, password: string) => {
+  const login = async (loginRequest: PostLoginRequest) => {
     try {
-      const data = await mutateLogin.mutateAsync({ email, password });
-      // const data = { accessToken: "token" };
+      const data = await mutateLogin.mutateAsync(loginRequest);
       setAccessToken(data.accessToken);
       localStorage.setItem("accessToken", data.accessToken);
-      history.replace(from);
+      return true;
     } catch (error) {
       toast({
         title: error.message,
         status: "error",
         isClosable: true,
       });
+      return false;
     }
   };
 
   const logout = () => {
-    // history.push("/");
     queryClient.clear();
     setAccessToken(undefined);
     localStorage.removeItem("accessToken");
