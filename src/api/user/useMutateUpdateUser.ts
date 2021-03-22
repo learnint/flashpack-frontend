@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import { useFetcher } from "api/config";
+import { SomethingWentWrong, UnknownServerError, useFetcher } from "api/config";
 import { User } from "models";
 
 export interface PutUserRequest {
@@ -28,10 +28,10 @@ export const useMutateUpdateUser = () => {
           case 409:
             throw new Error("Email is already taken");
           default:
-            throw new Error(`Unknown server error occured: ${error.status}`);
+            throw UnknownServerError(error);
         }
       }
-      throw new Error(`Something went wrong: ${error.message || error}`);
+      throw SomethingWentWrong(error);
     }
   };
 

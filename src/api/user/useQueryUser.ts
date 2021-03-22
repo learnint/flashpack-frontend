@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from "react-query";
-import { useFetcher } from "api/config";
+import { SomethingWentWrong, UnknownServerError, useFetcher } from "api/config";
 import { User } from "models";
 
 export const useQueryUser = (options?: UseQueryOptions<User, Error, User>) => {
@@ -14,10 +14,10 @@ export const useQueryUser = (options?: UseQueryOptions<User, Error, User>) => {
           case 404:
             throw new Error("Could not find user");
           default:
-            throw new Error(`Unknown server error occured: ${error.status}`);
+            throw UnknownServerError(error);
         }
       }
-      throw new Error(`Something went wrong: ${error.message || error}`);
+      throw SomethingWentWrong(error);
     }
   };
 

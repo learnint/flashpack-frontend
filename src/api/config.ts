@@ -46,3 +46,9 @@ export const useFetcher = () => {
 
   return internalFetcher;
 };
+
+export const UnknownServerError = (error: Response) =>
+  new Error(`Unknown server error occured: ${error.status}`);
+
+export const SomethingWentWrong = (error: any) =>
+  new Error(`Something went wrong: ${error.message || error}`);

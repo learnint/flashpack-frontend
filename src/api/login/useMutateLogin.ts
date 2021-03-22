@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { fetcher } from "api/config";
+import { fetcher, SomethingWentWrong, UnknownServerError } from "api/config";
 import { LoginResponse } from "models";
 
 export interface PostLoginRequest {
@@ -25,10 +25,10 @@ export const useMutateLogin = () => {
           case 404:
             throw new Error("Cannot find server");
           default:
-            throw new Error(`Unknown server error occured: ${error.status}`);
+            throw UnknownServerError(error);
         }
       }
-      throw new Error(`Something went wrong: ${error.message || error}`);
+      throw SomethingWentWrong(error);
     }
   };
 

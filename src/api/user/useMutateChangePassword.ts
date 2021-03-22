@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { useFetcher } from "api/config";
+import { SomethingWentWrong, UnknownServerError, useFetcher } from "api/config";
 import { User } from "models";
 
 export interface PatchChangePasswordRequest {
@@ -25,10 +25,10 @@ export const useMutateChangePassword = () => {
           case 422:
             throw new Error("Old password is not correct");
           default:
-            throw new Error(`Unknown server error occured: ${error.status}`);
+            throw UnknownServerError(error);
         }
       }
-      throw new Error(`Something went wrong: ${error.message || error}`);
+      throw SomethingWentWrong(error);
     }
   };
 
