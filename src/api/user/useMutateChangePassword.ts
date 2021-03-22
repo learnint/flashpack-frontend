@@ -22,6 +22,10 @@ export const useMutateChangePassword = () => {
     } catch (error) {
       if (error instanceof Response) {
         switch (error.status) {
+          case 400:
+            throw new Error("Invalid request body");
+          case 404:
+            throw new Error("Could not find user");
           case 422:
             throw new Error("Old password is not correct");
           default:

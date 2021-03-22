@@ -22,8 +22,6 @@ export const useMutateLogin = () => {
         switch (error.status) {
           case 401:
             throw new Error("Invalid login credentials");
-          case 404:
-            throw new Error("Cannot find server");
           default:
             throw UnknownServerError(error);
         }

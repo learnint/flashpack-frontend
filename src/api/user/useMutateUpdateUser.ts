@@ -25,6 +25,10 @@ export const useMutateUpdateUser = () => {
     } catch (error) {
       if (error instanceof Response) {
         switch (error.status) {
+          case 400:
+            throw new Error("Invalid request body");
+          case 404:
+            throw new Error("Could not find user");
           case 409:
             throw new Error("Email is already taken");
           default:
