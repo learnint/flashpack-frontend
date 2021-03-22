@@ -1,6 +1,4 @@
 import React, { createContext, useContext } from "react";
-import { useToast } from "@chakra-ui/react";
-import { User } from "models";
 import {
   PatchChangePasswordRequest,
   PutUserRequest,
@@ -8,6 +6,8 @@ import {
   useMutateUpdateUser,
   useQueryUser,
 } from "api";
+import { useToast } from "components/common";
+import { User } from "models";
 
 interface UserContext {
   user: User | undefined;
@@ -41,7 +41,6 @@ const useUserProvider = () => {
       toast({
         title: error.message,
         status: "error",
-        isClosable: true,
       });
     },
   });
@@ -54,7 +53,6 @@ const useUserProvider = () => {
       toast({
         title: error.message,
         status: "error",
-        isClosable: true,
       });
       return false;
     }
@@ -68,7 +66,6 @@ const useUserProvider = () => {
       toast({
         title: error.message,
         status: "error",
-        isClosable: true,
       });
       return false;
     }

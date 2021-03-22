@@ -1,4 +1,4 @@
-import { useToast } from "@chakra-ui/react";
+import { useToast } from "components/common";
 import { useAuth } from "auth";
 
 const baseUrl =
@@ -38,7 +38,6 @@ export const useFetcher = () => {
         toast({
           title: "Invalid token, please login",
           status: "error",
-          isClosable: true,
         });
       }
       throw error;

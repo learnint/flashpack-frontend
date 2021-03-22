@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from "react";
-import { useToast } from "@chakra-ui/react";
 import { useQueryClient } from "react-query";
 import {
   PostLoginRequest,
@@ -7,6 +6,7 @@ import {
   useMutateCreateUser,
   useMutateLogin,
 } from "api";
+import { useToast } from "components/common";
 
 interface AuthContext {
   accessToken: string | undefined;
@@ -47,7 +47,6 @@ const useAuthProvider = () => {
       toast({
         title: error.message,
         status: "error",
-        isClosable: true,
       });
       return false;
     }
@@ -63,7 +62,6 @@ const useAuthProvider = () => {
       toast({
         title: error.message,
         status: "error",
-        isClosable: true,
       });
       return false;
     }
