@@ -16,7 +16,12 @@ export const confirmPassword = Yup.string()
 
 export const oldPassword = Yup.string().required("Required");
 
-export const newPassword = Yup.string().required("Required");
+export const newPassword = Yup.string()
+  .notOneOf(
+    [Yup.ref("oldPassword")],
+    "New password cannot be the same as old password"
+  )
+  .required("Required");
 
 export const confirmNewPassword = Yup.string()
   .oneOf([Yup.ref("newPassword")], "New passwords do not match")
