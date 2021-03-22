@@ -42,6 +42,11 @@ const useAuthProvider = () => {
   const createAccount = async (request: PostUserRequest) => {
     try {
       await mutateCreateUser.mutateAsync(request);
+      toast({
+        title: "Account created!",
+        description: "Please login",
+        status: "success",
+      });
       return true;
     } catch (error) {
       toast({
@@ -57,6 +62,10 @@ const useAuthProvider = () => {
       const data = await mutateLogin.mutateAsync(request);
       setAccessToken(data.accessToken);
       localStorage.setItem("accessToken", data.accessToken);
+      toast({
+        title: "Successfully logged in!",
+        status: "success",
+      });
       return true;
     } catch (error) {
       toast({

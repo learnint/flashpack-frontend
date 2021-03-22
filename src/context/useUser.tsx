@@ -48,6 +48,10 @@ const useUserProvider = () => {
   const updateUser = async (request: PutUserRequest) => {
     try {
       await mutateUpdateUser.mutateAsync(request);
+      toast({
+        title: "Account info updated!",
+        status: "success",
+      });
       return true;
     } catch (error) {
       toast({
@@ -61,6 +65,10 @@ const useUserProvider = () => {
   const changePassword = async (request: PatchChangePasswordRequest) => {
     try {
       await mutateChangePassword.mutateAsync(request);
+      toast({
+        title: "Password successfully changed!",
+        status: "success",
+      });
       return true;
     } catch (error) {
       toast({
