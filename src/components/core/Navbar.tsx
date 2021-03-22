@@ -17,7 +17,9 @@ export const Navbar: React.FC = () => {
       <Box h="2" bgColor={colorScheme} />
       <Flex px="4" py="2" alignItems="center">
         <Heading color={colorScheme} mr="auto" size="md">
-          <Link to="/">Flashpack</Link>
+          <Link to="/" replace={location.pathname === "/"}>
+            Flashpack
+          </Link>
         </Heading>
         {!["/login", "/createAccount"].includes(location.pathname) ? (
           accessToken ? (
