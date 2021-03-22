@@ -7,7 +7,6 @@ interface UserContext {
   user: User | undefined;
   isUserLoading: boolean;
   isUserError: boolean;
-  // createUser: () => Promise<void>;
   updateUser: (user: PutUserRequest) => Promise<boolean>;
   // changePassword: () => Promise<void>;
 }
@@ -33,7 +32,7 @@ const useUserProvider = () => {
   const { data, isLoading, isError } = useQueryUser({
     onError: (error) => {
       toast({
-        title: error?.message,
+        title: error.message,
         status: "error",
         isClosable: true,
       });
@@ -46,7 +45,7 @@ const useUserProvider = () => {
       return true;
     } catch (error) {
       toast({
-        title: error?.message,
+        title: error.message,
         status: "error",
         isClosable: true,
       });
