@@ -3,11 +3,14 @@ import { Flex, Button } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useUser } from "context";
 import { FormInput } from "components/common";
 import { oldPassword, newPassword, confirmNewPassword } from "validations";
 
 export const ChangePassword: React.FC = () => {
   const history = useHistory();
+
+  const { changePassword } = useUser();
 
   const isShownState = useState<boolean>(false);
 
@@ -23,12 +26,11 @@ export const ChangePassword: React.FC = () => {
         newPassword,
         confirmNewPassword,
       })}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+      onSubmit={async (values) => {
+        const success = await changePassword(values);
+        if (success) {
           history.push("/account");
-          actions.setSubmitting(false);
-        }, 1000);
+        }
       }}
     >
       {({ isSubmitting, errors, touched }) => (
