@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Flex } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { useAuth } from "auth";
 import { FormInput } from "components/common";
@@ -15,8 +15,9 @@ import {
 } from "validations";
 
 export const CreateAccount: React.FC = () => {
+  const history = useHistory();
   const { from } = useLocationState();
-  const auth = useAuth();
+  const { createAccount } = useAuth();
 
   const isShownState = useState<boolean>(false);
 
@@ -38,7 +39,10 @@ export const CreateAccount: React.FC = () => {
           confirmPassword,
         })}
         onSubmit={async (values) => {
-          // TODO
+          const success = await createAccount(values);
+          if (success) {
+            history.replace("/login", { from: from });
+          }
         }}
       >
         {({ isSubmitting, errors, touched }) => (

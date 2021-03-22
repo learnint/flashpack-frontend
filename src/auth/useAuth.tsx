@@ -1,10 +1,16 @@
 import React, { createContext, useContext, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useQueryClient } from "react-query";
-import { PostLoginRequest, useMutateLogin } from "api";
+import {
+  PostLoginRequest,
+  PostUserRequest,
+  useMutateCreateUser,
+  useMutateLogin,
+} from "api";
 
 interface AuthContext {
   accessToken: string | undefined;
+  createAccount: (user: PostUserRequest) => Promise<boolean>;
   login: (loginRequest: PostLoginRequest) => Promise<boolean>;
   logout: () => void;
 }
@@ -24,6 +30,7 @@ export const useAuth = () => {
 
 const useAuthProvider = () => {
   const queryClient = useQueryClient();
+  const mutateCreateUser = useMutateCreateUser();
   const mutateLogin = useMutateLogin();
 
   const toast = useToast();
@@ -31,6 +38,20 @@ const useAuthProvider = () => {
   const [accessToken, setAccessToken] = useState<string | undefined>(
     localStorage.getItem("accessToken") || undefined
   );
+
+  const createAccount = async (user: PostUserRequest) => {
+    try {
+      await mutateCreateUser.mutateAsync(user);
+      return true;
+    } catch (error) {
+      toast({
+        title: error.message,
+        status: "error",
+        isClosable: true,
+      });
+      return false;
+    }
+  };
 
   const login = async (loginRequest: PostLoginRequest) => {
     try {
@@ -56,6 +77,7 @@ const useAuthProvider = () => {
 
   return {
     accessToken,
+    createAccount,
     login,
     logout,
   };
