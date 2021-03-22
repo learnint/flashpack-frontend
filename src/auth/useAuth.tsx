@@ -10,8 +10,8 @@ import {
 
 interface AuthContext {
   accessToken: string | undefined;
-  createAccount: (user: PostUserRequest) => Promise<boolean>;
-  login: (loginRequest: PostLoginRequest) => Promise<boolean>;
+  createAccount: (request: PostUserRequest) => Promise<boolean>;
+  login: (request: PostLoginRequest) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -39,9 +39,9 @@ const useAuthProvider = () => {
     localStorage.getItem("accessToken") || undefined
   );
 
-  const createAccount = async (user: PostUserRequest) => {
+  const createAccount = async (request: PostUserRequest) => {
     try {
-      await mutateCreateUser.mutateAsync(user);
+      await mutateCreateUser.mutateAsync(request);
       return true;
     } catch (error) {
       toast({
@@ -53,9 +53,9 @@ const useAuthProvider = () => {
     }
   };
 
-  const login = async (loginRequest: PostLoginRequest) => {
+  const login = async (request: PostLoginRequest) => {
     try {
-      const data = await mutateLogin.mutateAsync(loginRequest);
+      const data = await mutateLogin.mutateAsync(request);
       setAccessToken(data.accessToken);
       localStorage.setItem("accessToken", data.accessToken);
       return true;

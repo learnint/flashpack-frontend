@@ -13,10 +13,8 @@ interface UserContext {
   user: User | undefined;
   isUserLoading: boolean;
   isUserError: boolean;
-  updateUser: (user: PutUserRequest) => Promise<boolean>;
-  changePassword: (
-    changePasswordRequest: PatchChangePasswordRequest
-  ) => Promise<boolean>;
+  updateUser: (request: PutUserRequest) => Promise<boolean>;
+  changePassword: (request: PatchChangePasswordRequest) => Promise<boolean>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -48,9 +46,9 @@ const useUserProvider = () => {
     },
   });
 
-  const updateUser = async (user: PutUserRequest) => {
+  const updateUser = async (request: PutUserRequest) => {
     try {
-      await mutateUpdateUser.mutateAsync(user);
+      await mutateUpdateUser.mutateAsync(request);
       return true;
     } catch (error) {
       toast({
@@ -62,11 +60,9 @@ const useUserProvider = () => {
     }
   };
 
-  const changePassword = async (
-    changePasswordRequest: PatchChangePasswordRequest
-  ) => {
+  const changePassword = async (request: PatchChangePasswordRequest) => {
     try {
-      await mutateChangePassword.mutateAsync(changePasswordRequest);
+      await mutateChangePassword.mutateAsync(request);
       return true;
     } catch (error) {
       toast({
