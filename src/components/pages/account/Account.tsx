@@ -9,7 +9,7 @@ import { ChangePassword } from "./changePassword";
 export const Account: React.FC = () => {
   const history = useHistory();
   const { path, url } = useRouteMatch();
-  const auth = useAuth();
+  const { logout } = useAuth();
   const { isUserLoading, isUserError } = useUser();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -36,7 +36,7 @@ export const Account: React.FC = () => {
               >
                 Change Password
               </Button>
-              <Button onClick={() => auth.logout()}>Logout</Button>
+              <Button onClick={() => logout()}>Logout</Button>
             </Stack>
           ) : null}
         </Route>

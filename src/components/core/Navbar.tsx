@@ -9,7 +9,7 @@ import { ColorModeSwitcher } from "./ColorModeSwitcher";
 export const Navbar: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
-  const auth = useAuth();
+  const { accessToken } = useAuth();
   const colorScheme = useColorScheme();
 
   return (
@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
           <Link to="/">Flashpack</Link>
         </Heading>
         {!["/login", "/createAccount"].includes(location.pathname) ? (
-          auth.accessToken ? (
+          accessToken ? (
             <IconButton
               mr="2"
               variant="ghost"

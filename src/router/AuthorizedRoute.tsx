@@ -10,13 +10,13 @@ export const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({
   children,
   path,
 }) => {
-  const auth = useAuth();
+  const { accessToken } = useAuth();
 
   return (
     <Route
       path={path}
       render={({ location }) =>
-        auth.accessToken ? (
+        accessToken ? (
           children
         ) : (
           <Redirect

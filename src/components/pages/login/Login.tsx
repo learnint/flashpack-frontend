@@ -11,7 +11,7 @@ import { email, password } from "validations";
 export const Login: React.FC = () => {
   const history = useHistory();
   const { from } = useLocationState();
-  const auth = useAuth();
+  const { login } = useAuth();
 
   const isShownState = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ export const Login: React.FC = () => {
         initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({ email, password })}
         onSubmit={async (values) => {
-          const success = await auth.login(values);
+          const success = await login(values);
           if (success) {
             history.replace(from);
           }

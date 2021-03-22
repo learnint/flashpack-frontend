@@ -10,12 +10,12 @@ export const AnonymousRoute: React.FC<AnonymousRouteProps> = ({
   children,
   path,
 }) => {
-  const auth = useAuth();
+  const { accessToken } = useAuth();
 
   return (
     <Route
       path={path}
-      render={() => (!auth.accessToken ? children : <Redirect to="/" />)}
+      render={() => (!accessToken ? children : <Redirect to="/" />)}
     />
   );
 };
