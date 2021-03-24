@@ -5,7 +5,7 @@ import { Switch } from "react-router-dom";
 import { UserProvider } from "context";
 import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
-import { Account, CreateAccount, Login } from "components/pages";
+import { Account, CreateAccount, Login, Groups, Packs } from "components/pages";
 
 export const App: React.FC = () => {
   return (
@@ -31,7 +31,13 @@ export const App: React.FC = () => {
               <Account />
             </UserProvider>
           </AuthorizedRoute>
-          <AuthorizedRoute path="/">Root</AuthorizedRoute>
+          <AuthorizedRoute path="/packs">
+            <Packs />
+          </AuthorizedRoute>
+          <AuthorizedRoute path="/groups">
+            <Groups />
+          </AuthorizedRoute>
+          <AuthorizedRoute path="/">Home</AuthorizedRoute>
         </Switch>
       </Flex>
       <ReactQueryDevtools initialIsOpen={false} />
