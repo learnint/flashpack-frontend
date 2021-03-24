@@ -1,2 +1,2 @@
 export * from "./Packs";
-export * from "./Pack";
+export * from "./PacksList";
