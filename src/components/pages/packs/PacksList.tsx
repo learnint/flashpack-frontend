@@ -1,9 +1,10 @@
 import React from "react";
 import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
+import { Pack as PackModel } from "models";
 import { Pack } from "./Pack";
 
 interface PacksListProps {
-  packs: string[];
+  packs: PackModel[];
 }
 
 export const PacksList: React.FC<PacksListProps> = ({ packs }) => {
@@ -12,12 +13,12 @@ export const PacksList: React.FC<PacksListProps> = ({ packs }) => {
   return (
     <Switch>
       <Route path={`${path}/:packId`}>
-        <Pack />
+        <Pack packs={packs} />
       </Route>
       <Route path={path}>
-        {packs.map((pack, index) => (
-          <Link to={`${url}/${pack}`} key={index}>
-            Pack {index}
+        {packs.map((pack) => (
+          <Link to={`${url}/${pack.id}`} key={pack.id}>
+            {pack.name}
           </Link>
         ))}
       </Route>
