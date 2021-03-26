@@ -30,7 +30,7 @@ export const Packs: React.FC = () => {
   return (
     <Stack w="full" maxW="container.lg">
       <Flex justifyContent="space-between">
-        <Heading color={colorScheme}>Packs</Heading>
+        <Heading color={colorScheme}>My Packs</Heading>
         <Button>Create New Pack</Button>
       </Flex>
       <PacksList packs={packs} />

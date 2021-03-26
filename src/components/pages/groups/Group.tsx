@@ -29,7 +29,7 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
         <Switch>
           <Route path={`${path}/packs`}>
             <Flex justifyContent="space-between">
-              <Heading color={colorScheme}>{group.name}</Heading>
+              <Heading color={colorScheme}>{group.name} Packs</Heading>
               <Button>Edit Group</Button>
             </Flex>
             <PacksList packs={group.packs} />

@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Heading, Stack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import { useLocationState } from "router";
 import * as Yup from "yup";
 import { useAuth } from "auth";
 import { FormInput } from "components/common";
+import { useColorScheme } from "theme";
 import { email, password } from "validations";
 
 export const Login: React.FC = () => {
   const history = useHistory();
   const { from } = useLocationState();
   const { login } = useAuth();
+  const colorScheme = useColorScheme();
 
   const isShownState = useState<boolean>(false);
 
   return (
-    <Flex w="full" maxW="container.sm" direction="column">
+    <Stack w="full" maxW="container.sm">
+      <Heading color={colorScheme}>Login</Heading>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({ email, password })}
@@ -61,6 +64,6 @@ export const Login: React.FC = () => {
       >
         Create Account
       </Link>
-    </Flex>
+    </Stack>
   );
 };

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Stack, Heading } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { useAuth } from "auth";
 import { FormInput } from "components/common";
 import { useLocationState } from "router";
+import { useColorScheme } from "theme";
 import {
   confirmPassword,
   email,
@@ -17,12 +18,14 @@ import {
 export const CreateAccount: React.FC = () => {
   const history = useHistory();
   const { from } = useLocationState();
+  const colorScheme = useColorScheme();
   const { createAccount } = useAuth();
 
   const isShownState = useState<boolean>(false);
 
   return (
-    <Flex w="full" maxW="container.sm" direction="column">
+    <Stack w="full" maxW="container.sm">
+      <Heading color={colorScheme}>Create Account</Heading>
       <Formik
         initialValues={{
           firstName: "",
@@ -101,6 +104,6 @@ export const CreateAccount: React.FC = () => {
       >
         Already have an account? Login
       </Link>
-    </Flex>
+    </Stack>
   );
 };
