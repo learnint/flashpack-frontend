@@ -42,7 +42,7 @@ export const BlockLink: React.FC<BlockLinkProps> = ({
             Edit
           </Button>
         </Flex>
-        <Flex p="2" mt="2" alignSelf="end">
+        <Flex p="2" mt="2" alignSelf="flex-end">
           {counts.map(({ key, value }, index) => (
             <Text
               mr={counts.length !== index + 1 ? "2" : undefined}
