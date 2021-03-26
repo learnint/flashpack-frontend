@@ -33,13 +33,14 @@ const useAuthProvider = () => {
   const mutateCreateUser = useMutateCreateUser();
   const mutateLogin = useMutateLogin();
 
-  const toast = useToast();
+  const { toast, closeAll } = useToast();
 
   const [accessToken, setAccessToken] = useState<string | undefined>(
     localStorage.getItem("accessToken") || undefined
   );
 
   const createAccount = async (request: PostUserRequest) => {
+    closeAll();
     try {
       await mutateCreateUser.mutateAsync(request);
       toast({
@@ -58,6 +59,7 @@ const useAuthProvider = () => {
   };
 
   const login = async (request: PostLoginRequest) => {
+    closeAll();
     try {
       const data = await mutateLogin.mutateAsync(request);
       setAccessToken(data.accessToken);

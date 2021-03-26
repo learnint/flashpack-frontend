@@ -18,7 +18,7 @@ export const fetcher = async <T>(path: string, options?: RequestInit) => {
 
 export const useFetcher = () => {
   const { accessToken, logout } = useAuth();
-  const toast = useToast();
+  const { toast } = useToast();
 
   const internalFetcher = async <T>(path: string, options?: RequestInit) => {
     try {

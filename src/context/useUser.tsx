@@ -31,7 +31,7 @@ export const useUser = () => {
 };
 
 const useUserProvider = () => {
-  const toast = useToast();
+  const { toast, closeAll } = useToast();
 
   const mutateUpdateUser = useMutateUpdateUser();
   const mutateChangePassword = useMutateChangePassword();
@@ -46,6 +46,7 @@ const useUserProvider = () => {
   });
 
   const updateUser = async (request: PutUserRequest) => {
+    closeAll();
     try {
       await mutateUpdateUser.mutateAsync(request);
       toast({
@@ -63,6 +64,7 @@ const useUserProvider = () => {
   };
 
   const changePassword = async (request: PatchChangePasswordRequest) => {
+    closeAll();
     try {
       await mutateChangePassword.mutateAsync(request);
       toast({
