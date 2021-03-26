@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Heading, Button, IconButton } from "@chakra-ui/react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "auth";
 import { useColorScheme } from "theme";
 import { FaUser } from "react-icons/fa";
@@ -17,9 +17,9 @@ export const Navbar: React.FC = () => {
       <Box h="2" bgColor={colorScheme} />
       <Flex px="4" py="2" alignItems="center">
         <Heading color={colorScheme} mr="auto" size="md">
-          <Link to="/" replace={location.pathname === "/"}>
+          <RouterLink to="/" replace={location.pathname === "/"}>
             Flashpack
-          </Link>
+          </RouterLink>
         </Heading>
         {!["/login", "/createAccount"].includes(location.pathname) ? (
           accessToken ? (

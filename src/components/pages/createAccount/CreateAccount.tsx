@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Stack, Heading } from "@chakra-ui/react";
+import { Button, Stack, Heading, Link } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import { Link, useHistory } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { useAuth } from "auth";
 import { FormInput } from "components/common";
@@ -96,6 +96,7 @@ export const CreateAccount: React.FC = () => {
         )}
       </Formik>
       <Link
+        as={RouterLink}
         to={{
           pathname: "/login",
           state: { from: from },
