@@ -29,7 +29,7 @@ export const BlockLink: React.FC<BlockLinkProps> = ({
   return (
     <LinkBox as="article" h="3xs" p="5" borderWidth="thin" rounded="lg">
       <Flex h="full" direction="column" justifyContent="space-between">
-        <Flex justifyContent="space-between" overflow="hidden">
+        <Flex p="2" justifyContent="space-between" overflow="hidden">
           <Box>
             <Heading size="lg" color={colorScheme}>
               <LinkOverlay as={RouterLink} to={to}>
@@ -42,7 +42,7 @@ export const BlockLink: React.FC<BlockLinkProps> = ({
             Edit
           </Button>
         </Flex>
-        <Flex mt="2" alignSelf="end">
+        <Flex p="2" mt="2" alignSelf="end">
           {counts.map(({ key, value }, index) => (
             <Text
               mr={counts.length !== index + 1 ? "2" : undefined}
