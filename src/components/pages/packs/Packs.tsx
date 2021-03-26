@@ -1,6 +1,8 @@
 import React from "react";
-import { PacksList } from "./PacksList";
+import { Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import { Pack } from "models";
+import { useColorScheme } from "theme";
+import { PacksList } from "./PacksList";
 
 const packs: Pack[] = [
   {
@@ -23,5 +25,15 @@ const packs: Pack[] = [
 ];
 
 export const Packs: React.FC = () => {
-  return <PacksList packs={packs} />;
+  const colorScheme = useColorScheme();
+
+  return (
+    <Stack w="full" maxW="container.lg">
+      <Flex justifyContent="space-between">
+        <Heading color={colorScheme}>Packs</Heading>
+        <Button>Create New Pack</Button>
+      </Flex>
+      <PacksList packs={packs} />
+    </Stack>
+  );
 };

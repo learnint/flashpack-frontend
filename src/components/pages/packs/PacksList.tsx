@@ -1,6 +1,7 @@
 import React from "react";
-import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { Pack as PackModel } from "models";
+import { BlockLink } from "components/common";
 import { Pack } from "./Pack";
 
 interface PacksListProps {
@@ -16,10 +17,14 @@ export const PacksList: React.FC<PacksListProps> = ({ packs }) => {
         <Pack packs={packs} />
       </Route>
       <Route path={path}>
-        {packs.map((pack) => (
-          <Link to={`${url}/${pack.id}`} key={pack.id}>
-            {pack.name}
-          </Link>
+        {packs.map(({ id, name, description, cards }) => (
+          <BlockLink
+            to={`${url}/${id}`}
+            name={name}
+            description={description}
+            counts={[{ key: "Cards", value: cards.length }]}
+            key={id}
+          />
         ))}
       </Route>
     </Switch>
