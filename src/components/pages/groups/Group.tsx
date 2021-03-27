@@ -30,9 +30,16 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
           <Route path={`${path}/packs`}>
             <Flex justifyContent="space-between">
               <Heading color={colorScheme}>{group.name} Packs</Heading>
-              <Button>Edit Group</Button>
+              {group.isAdmin ? (
+                <Flex justifyContent="flex-end" wrap="wrap">
+                  <Button ml="2" mb="2">
+                    Settings
+                  </Button>
+                  <Button ml="2">Create Pack</Button>
+                </Flex>
+              ) : null}
             </Flex>
-            <PacksList packs={group.packs} />
+            <PacksList packs={group.packs} isAdmin={group.isAdmin} />
           </Route>
           <Route path={path}>
             <Redirect to={`${url}/packs`} />

@@ -11,6 +11,7 @@ const groups: GroupModel[] = [
     id: "g1",
     name: "PROG1820",
     description: "Programming practice",
+    isAdmin: true,
     tags: ["Programming", "School"],
     users: [],
     packs: [
@@ -35,6 +36,7 @@ const groups: GroupModel[] = [
     id: "g2",
     name: "MATH101",
     description: "Math class",
+    isAdmin: false,
     tags: [],
     users: [],
     packs: [
@@ -65,13 +67,14 @@ export const Groups: React.FC = () => {
         <Route path={path}>
           <Flex justifyContent="space-between">
             <Heading color={colorScheme}>Groups</Heading>
-            <Button>Create New Group</Button>
+            <Button>Create Group</Button>
           </Flex>
-          {groups.map(({ id, name, description, packs, users }) => (
+          {groups.map(({ id, name, description, isAdmin, packs, users }) => (
             <BlockLink
               to={`${url}/${id}`}
               name={name}
               description={description}
+              isEditable={isAdmin}
               counts={[
                 { key: "Packs", value: packs.length },
                 { key: "Members", value: users.length },

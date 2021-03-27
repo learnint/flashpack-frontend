@@ -6,9 +6,13 @@ import { Pack } from "./Pack";
 
 interface PacksListProps {
   packs: PackModel[];
+  isAdmin?: boolean;
 }
 
-export const PacksList: React.FC<PacksListProps> = ({ packs }) => {
+export const PacksList: React.FC<PacksListProps> = ({
+  packs,
+  isAdmin = true,
+}) => {
   const { path, url } = useRouteMatch();
 
   return (
@@ -22,6 +26,7 @@ export const PacksList: React.FC<PacksListProps> = ({ packs }) => {
             to={`${url}/${id}`}
             name={name}
             description={description}
+            isEditable={isAdmin}
             counts={[{ key: "Cards", value: cards.length }]}
             key={id}
           />
