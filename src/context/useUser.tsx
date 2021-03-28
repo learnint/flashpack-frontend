@@ -8,6 +8,7 @@ import {
 } from "api";
 import { useToast } from "components/common";
 import { User } from "models";
+import { useMutator } from "./config";
 
 interface UserContext {
   user: User | undefined;
@@ -31,7 +32,9 @@ export const useUser = () => {
 };
 
 const useUserProvider = () => {
-  const { toast, closeAll } = useToast();
+  const { toast } = useToast();
+
+  const mutator = useMutator();
 
   const mutateUpdateUser = useMutateUpdateUser();
   const mutateChangePassword = useMutateChangePassword();
@@ -45,41 +48,11 @@ const useUserProvider = () => {
     },
   });
 
-  const updateUser = async (request: PutUserRequest) => {
-    closeAll();
-    try {
-      await mutateUpdateUser.mutateAsync(request);
-      toast({
-        title: "Account info updated!",
-        status: "success",
-      });
-      return true;
-    } catch (error) {
-      toast({
-        title: error.message,
-        status: "error",
-      });
-      return false;
-    }
-  };
+  const updateUser = (request: PutUserRequest) =>
+    mutator(mutateUpdateUser, request, "Account info updated!");
 
-  const changePassword = async (request: PatchChangePasswordRequest) => {
-    closeAll();
-    try {
-      await mutateChangePassword.mutateAsync(request);
-      toast({
-        title: "Password successfully changed!",
-        status: "success",
-      });
-      return true;
-    } catch (error) {
-      toast({
-        title: error.message,
-        status: "error",
-      });
-      return false;
-    }
-  };
+  const changePassword = (request: PatchChangePasswordRequest) =>
+    mutator(mutateChangePassword, request, "Password successfully changed!");
 
   return {
     user: data,
