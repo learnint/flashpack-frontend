@@ -39,7 +39,7 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
                 </Flex>
               ) : null}
             </Flex>
-            <PacksList packs={[]} isAdmin={group.isAdmin} />
+            <PacksList groupId={groupId} isAdmin={group.isAdmin} />
           </Route>
           <Route path={path}>
             <Redirect to={`${url}/packs`} />
