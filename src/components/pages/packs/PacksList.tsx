@@ -56,7 +56,7 @@ export const PacksList: React.FC<PacksListProps> = ({
   return (
     <Switch>
       <Route path={`${path}/:packId`}>
-        <Pack packs={packs} />
+        <Pack packs={groupId ? groupPacks : packs} />
       </Route>
       <Route path={path}>
         {(groupId ? groupPacks : packs).map(
