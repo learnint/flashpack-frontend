@@ -65,7 +65,7 @@ export const PacksList: React.FC<PacksListProps> = ({
               to={`${url}/${id}`}
               name={name}
               description={description}
-              isEditable={isAdmin}
+              onEditClick={isAdmin ? () => {} : undefined}
               counts={[{ key: "Cards", value: cards.length }]}
               key={id}
             />

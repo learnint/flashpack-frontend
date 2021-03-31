@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, Heading, Flex, Button } from "@chakra-ui/react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import { Group as GroupModel } from "models";
 import { BlockLink } from "components/common";
 import { useColorScheme } from "theme";
@@ -28,6 +28,7 @@ const groups: GroupModel[] = [
 ];
 
 export const Groups: React.FC = () => {
+  const history = useHistory();
   const { path, url } = useRouteMatch();
   const colorScheme = useColorScheme();
 
@@ -47,7 +48,11 @@ export const Groups: React.FC = () => {
               to={`${url}/${id}`}
               name={name}
               description={description}
-              isEditable={isAdmin}
+              onEditClick={
+                isAdmin
+                  ? () => history.push(`${url}/${id}/settings`)
+                  : undefined
+              }
               counts={[
                 { key: "Packs", value: 0 },
                 { key: "Members", value: users.length },

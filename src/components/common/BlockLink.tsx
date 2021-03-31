@@ -16,7 +16,7 @@ interface BlockLinkProps {
   to: string;
   name: string;
   description?: string;
-  isEditable?: boolean;
+  onEditClick?: () => void;
   counts: { key: string; value: number }[];
 }
 
@@ -24,7 +24,7 @@ export const BlockLink: React.FC<BlockLinkProps> = ({
   to,
   name,
   description,
-  isEditable = true,
+  onEditClick,
   counts,
 }) => {
   const colorScheme = useColorScheme();
@@ -41,13 +41,14 @@ export const BlockLink: React.FC<BlockLinkProps> = ({
             </Heading>
             <Text wordBreak="break-word">{description}</Text>
           </Box>
-          {isEditable ? (
+          {onEditClick ? (
             <IconButton
               ml="2"
               flexShrink={0}
               fontSize="xl"
               icon={<MdSettings />}
               aria-label="Settings"
+              onClick={onEditClick}
             />
           ) : null}
         </Flex>
