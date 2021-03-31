@@ -2,7 +2,7 @@ import React from "react";
 import { Flex } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Switch } from "react-router-dom";
-import { UserProvider } from "context";
+import { UserProvider, GroupProvider } from "context";
 import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
 import { Account, CreateAccount, Login, Groups, Packs } from "components/pages";
@@ -35,7 +35,9 @@ export const App: React.FC = () => {
             <Packs />
           </AuthorizedRoute>
           <AuthorizedRoute path="/groups">
-            <Groups />
+            <GroupProvider>
+              <Groups />
+            </GroupProvider>
           </AuthorizedRoute>
           <AuthorizedRoute path="/">Home</AuthorizedRoute>
         </Switch>

@@ -7,5 +7,7 @@ export interface Group {
   isJoined: boolean;
   isAdmin: boolean;
   tags: string[];
+  createdDate: string;
+  createdByUserId: string;
   users: User[];
 }
