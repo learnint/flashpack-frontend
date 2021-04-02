@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Flex, Heading } from "@chakra-ui/react";
+import { Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import {
   Redirect,
   Route,
@@ -27,7 +27,7 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
   const group = groups.find((group) => group.id === groupId);
 
   return (
-    <>
+    <Stack w="full" maxW="container.lg">
       {group ? (
         <Switch>
           <Route path={`${path}/packs`}>
@@ -58,6 +58,6 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
       ) : (
         <PathParamRedirect />
       )}
-    </>
+    </Stack>
   );
 };

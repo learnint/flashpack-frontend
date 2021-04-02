@@ -5,7 +5,7 @@ import { Group } from "models";
 export interface PostGroupRequest {
   name: string;
   description?: string;
-  tags: string[];
+  tags?: string[];
 }
 
 export const useMutateCreateGroup = () => {

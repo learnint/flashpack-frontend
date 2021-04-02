@@ -9,6 +9,7 @@ import {
   InputRightElement,
   Box,
   Spinner,
+  Textarea,
 } from "@chakra-ui/react";
 import { Field, FieldInputProps, FieldProps } from "formik";
 import { State } from "models";
@@ -83,6 +84,15 @@ export const FormInput: React.FC<FormInputProps> = ({
           {!isLoading ? (
             type === "password" && isShownState ? (
               renderPasswordInput(field, isShownState)
+            ) : type === "textarea" ? (
+              <Textarea
+                {...field}
+                id={name}
+                placeholder={placeholder}
+                type={type}
+                variant={variant}
+                isDisabled={isDisabled}
+              />
             ) : (
               <Input
                 {...field}
