@@ -13,6 +13,7 @@ import { Group as GroupModel } from "models";
 import { useColorScheme } from "theme";
 import { PacksList } from "components/pages";
 import { GroupSettings } from "./settings";
+import { GroupMembers } from "./members";
 
 interface GroupProps {
   groups: GroupModel[];
@@ -34,24 +35,33 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
             <Stack w="full" maxW="container.lg">
               <Flex justifyContent="space-between">
                 <Heading color={colorScheme}>{group.name} Packs</Heading>
-                {group.isAdmin ? (
-                  <Flex justifyContent="flex-end" wrap="wrap">
-                    <Button
-                      ml="2"
-                      mb="2"
-                      onClick={() => history.push(`${url}/settings`)}
-                    >
-                      Settings
+                <Flex justifyContent="flex-end" wrap="wrap">
+                  {group.isAdmin ? (
+                    <>
+                      <Button
+                        ml="2"
+                        mb="2"
+                        onClick={() => history.push(`${url}/settings`)}
+                      >
+                        Settings
+                      </Button>
+                      <Button ml="2">Create Pack</Button>
+                    </>
+                  ) : (
+                    <Button onClick={() => history.push(`${url}/members`)}>
+                      Members
                     </Button>
-                    <Button ml="2">Create Pack</Button>
-                  </Flex>
-                ) : null}
+                  )}
+                </Flex>
               </Flex>
               <PacksList groupId={groupId} isAdmin={group.isAdmin} />
             </Stack>
           </Route>
           <Route path={`${path}/settings`}>
             <GroupSettings group={group} />
+          </Route>
+          <Route path={`${path}/members`}>
+            <GroupMembers group={group} />
           </Route>
           <Route path={path}>
             <Redirect to={`${url}/packs`} />
