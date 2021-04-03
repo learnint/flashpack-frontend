@@ -9,7 +9,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
-import { BlockLink } from "components/common";
+import { BlockLink, ConfirmButton } from "components/common";
 import { useGroup } from "context";
 import { useColorScheme } from "theme";
 import { CreateGroup } from "./create";
@@ -107,13 +107,14 @@ export const Groups: React.FC = () => {
                       >
                         {({ isSubmitting }) => (
                           <Form>
-                            <Button
+                            <ConfirmButton
                               type="submit"
                               isLoading={isSubmitting}
-                              colorScheme="red"
+                              popoverText="Are you sure you want to decline this invite? This action cannot be undone."
+                              confirmText="Yes, Decline Invite"
                             >
                               Decline
-                            </Button>
+                            </ConfirmButton>
                           </Form>
                         )}
                       </Formik>
