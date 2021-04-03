@@ -27,26 +27,28 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
   const group = groups.find((group) => group.id === groupId);
 
   return (
-    <Stack w="full" maxW="container.lg">
+    <>
       {group ? (
         <Switch>
           <Route path={`${path}/packs`}>
-            <Flex justifyContent="space-between">
-              <Heading color={colorScheme}>{group.name} Packs</Heading>
-              {group.isAdmin ? (
-                <Flex justifyContent="flex-end" wrap="wrap">
-                  <Button
-                    ml="2"
-                    mb="2"
-                    onClick={() => history.push(`${url}/settings`)}
-                  >
-                    Settings
-                  </Button>
-                  <Button ml="2">Create Pack</Button>
-                </Flex>
-              ) : null}
-            </Flex>
-            <PacksList groupId={groupId} isAdmin={group.isAdmin} />
+            <Stack w="full" maxW="container.lg">
+              <Flex justifyContent="space-between">
+                <Heading color={colorScheme}>{group.name} Packs</Heading>
+                {group.isAdmin ? (
+                  <Flex justifyContent="flex-end" wrap="wrap">
+                    <Button
+                      ml="2"
+                      mb="2"
+                      onClick={() => history.push(`${url}/settings`)}
+                    >
+                      Settings
+                    </Button>
+                    <Button ml="2">Create Pack</Button>
+                  </Flex>
+                ) : null}
+              </Flex>
+              <PacksList groupId={groupId} isAdmin={group.isAdmin} />
+            </Stack>
           </Route>
           <Route path={`${path}/settings`}>
             <GroupSettings group={group} />
@@ -58,6 +60,6 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
       ) : (
         <PathParamRedirect />
       )}
-    </Stack>
+    </>
   );
 };
