@@ -1,12 +1,12 @@
 import React from "react";
 import {
   Avatar,
-  Box,
   Button,
   Divider,
   Flex,
   Heading,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { Formik, Form } from "formik";
@@ -68,9 +68,10 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
               color={grayColorScheme}
             />
             <Divider orientation="vertical" mx="4" />
-            <Box>
+            <Text>
               {firstName} {lastName}
-            </Box>
+            </Text>
+            {group.createdByUserId === id ? <Text ml="auto">Admin</Text> : null}
           </Flex>
           {group.users.length !== index + 1 ? <Divider /> : null}
         </React.Fragment>
