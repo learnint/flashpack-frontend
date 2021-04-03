@@ -25,7 +25,7 @@ export const CreateGroup: React.FC = () => {
         onSubmit={async (values) => {
           const success = await createGroup(values);
           if (success) {
-            history.replace("/groups");
+            history.push("/groups");
           }
         }}
       >
@@ -51,7 +51,7 @@ export const CreateGroup: React.FC = () => {
                 Create Group
               </Button>
               <Button
-                onClick={() => history.replace("/groups")}
+                onClick={() => history.push("/groups")}
                 isDisabled={isSubmitting}
                 flex="auto"
               >
