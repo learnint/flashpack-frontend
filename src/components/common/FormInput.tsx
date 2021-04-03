@@ -10,6 +10,7 @@ import {
   Box,
   Spinner,
   Textarea,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { Field, FieldInputProps, FieldProps } from "formik";
 import { State } from "models";
@@ -18,6 +19,7 @@ interface FormInputProps {
   name: string;
   label?: string;
   placeholder?: string;
+  helperText?: string;
   type?: string;
   isShownState?: State<boolean>;
   isDisabled?: boolean;
@@ -30,6 +32,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   name,
   label,
   placeholder,
+  helperText,
   type,
   isShownState,
   isDisabled,
@@ -106,6 +109,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           ) : (
             <Spinner size="sm" />
           )}
+          {helperText ? <FormHelperText>{helperText}</FormHelperText> : null}
           {isInvalid ? (
             <FormErrorMessage h="5" mb="1">
               {error}
