@@ -1,18 +1,33 @@
 import React from "react";
-import { Stack, Heading, Flex, Button, Skeleton } from "@chakra-ui/react";
+import {
+  Stack,
+  Heading,
+  Flex,
+  Button,
+  Skeleton,
+  Text,
+  Box,
+} from "@chakra-ui/react";
 import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import { BlockLink } from "components/common";
 import { useGroup } from "context";
 import { useColorScheme } from "theme";
 import { CreateGroup } from "./create";
 import { Group } from "./Group";
+import { Form, Formik } from "formik";
 
 export const Groups: React.FC = () => {
   const history = useHistory();
   const { path, url } = useRouteMatch();
   const colorScheme = useColorScheme();
 
-  const { groups, isGroupsLoading, isGroupsError } = useGroup();
+  const {
+    groups,
+    isGroupsLoading,
+    isGroupsError,
+    joinGroup,
+    leaveGroup,
+  } = useGroup();
 
   return (
     <>
@@ -54,8 +69,56 @@ export const Groups: React.FC = () => {
               <Heading size="md">Group Invites</Heading>
               {groups
                 .filter((group) => !group.isJoined)
-                .map(({ name }) => (
-                  <div>{name}</div>
+                .map(({ id, name, description }) => (
+                  <Flex
+                    as="article"
+                    justifyContent="space-between"
+                    p="5"
+                    borderWidth="thin"
+                    rounded="lg"
+                    key={id}
+                  >
+                    <Box>
+                      <Heading size="lg" color={colorScheme}>
+                        {name}
+                      </Heading>
+                      <Text wordBreak="break-word">{description}</Text>
+                    </Box>
+                    <Flex alignItems="center">
+                      <Formik
+                        initialValues={{}}
+                        onSubmit={async () => await joinGroup(id)}
+                      >
+                        {({ isSubmitting }) => (
+                          <Form>
+                            <Button
+                              type="submit"
+                              isLoading={isSubmitting}
+                              mr="2"
+                            >
+                              Accept
+                            </Button>
+                          </Form>
+                        )}
+                      </Formik>
+                      <Formik
+                        initialValues={{}}
+                        onSubmit={async () => await leaveGroup(id)}
+                      >
+                        {({ isSubmitting }) => (
+                          <Form>
+                            <Button
+                              type="submit"
+                              isLoading={isSubmitting}
+                              colorScheme="red"
+                            >
+                              Decline
+                            </Button>
+                          </Form>
+                        )}
+                      </Formik>
+                    </Flex>
+                  </Flex>
                 ))}
             </Stack>
           </Route>
