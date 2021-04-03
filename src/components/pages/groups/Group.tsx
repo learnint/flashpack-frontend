@@ -14,6 +14,7 @@ import { useColorScheme } from "theme";
 import { PacksList } from "components/pages";
 import { GroupSettings } from "./settings";
 import { GroupMembers } from "./members";
+import { GroupInvite } from "./invite";
 
 interface GroupProps {
   groups: GroupModel[];
@@ -62,6 +63,9 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
           </Route>
           <Route path={`${path}/members`}>
             <GroupMembers group={group} />
+          </Route>
+          <Route path={`${path}/invite`}>
+            <GroupInvite group={group} />
           </Route>
           <Route path={path}>
             <Redirect to={`${url}/packs`} />
