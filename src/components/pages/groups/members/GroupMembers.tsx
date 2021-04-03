@@ -9,6 +9,9 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
+import { Formik, Form } from "formik";
+import { useGroup } from "context";
+import { ConfirmButton } from "components/common";
 import { Group } from "models";
 import { useColorScheme } from "theme";
 
@@ -21,6 +24,8 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
   const colorScheme = useColorScheme();
   const grayColorScheme = useColorScheme("gray", true);
 
+  const { leaveGroup } = useGroup();
+
   return (
     <Stack w="full" maxW="container.sm" spacing="4">
       <Flex justifyContent="space-between">
@@ -30,9 +35,28 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
             Invite
           </Button>
         ) : (
-          <Button colorScheme="red" flexShrink={0}>
-            Leave Group
-          </Button>
+          <Formik
+            initialValues={{}}
+            onSubmit={async () => {
+              const success = await leaveGroup(group.id);
+              if (success) {
+                history.push("/groups");
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <ConfirmButton
+                  type="submit"
+                  isLoading={isSubmitting}
+                  popoverText="Are you sure you want to leave this group? This action cannot be undone."
+                  confirmText="Yes, Leave Group"
+                >
+                  Leave Group
+                </ConfirmButton>
+              </Form>
+            )}
+          </Formik>
         )}
       </Flex>
       {group.users.map(({ id, firstName, lastName }, index) => (
