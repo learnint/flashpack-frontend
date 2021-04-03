@@ -22,14 +22,18 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
   const grayColorScheme = useColorScheme("gray", true);
 
   return (
-    <Stack w="full" maxW="container.sm">
+    <Stack w="full" maxW="container.sm" spacing="4">
       <Flex justifyContent="space-between">
         <Heading color={colorScheme}>{group.name} Members</Heading>
         {group.isAdmin ? (
           <Button onClick={() => history.push(`/groups/${group.id}/invite`)}>
             Invite
           </Button>
-        ) : null}
+        ) : (
+          <Button colorScheme="red" flexShrink={0}>
+            Leave Group
+          </Button>
+        )}
       </Flex>
       {group.users.map(({ id, firstName, lastName }, index) => (
         <React.Fragment key={id}>
@@ -48,7 +52,6 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
           {group.users.length !== index + 1 ? <Divider /> : null}
         </React.Fragment>
       ))}
-      {!group.isAdmin ? <Button colorScheme="red">Leave Group</Button> : null}
     </Stack>
   );
 };
