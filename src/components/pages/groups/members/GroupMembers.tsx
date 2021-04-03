@@ -71,7 +71,6 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
             <Box>
               {firstName} {lastName}
             </Box>
-            <Divider orientation="vertical" ml="auto" />
           </Flex>
           {group.users.length !== index + 1 ? <Divider /> : null}
         </React.Fragment>
