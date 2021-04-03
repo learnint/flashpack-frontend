@@ -13,6 +13,10 @@ export const fetcher = async <T>(path: string, options?: RequestInit) => {
     throw response;
   }
 
+  // TODO: temp handling of non JSON responses from DELETE calls
+  if (options?.method === "DELETE") {
+    return {} as Promise<T>;
+  }
   return response.json() as Promise<T>;
 };
 
