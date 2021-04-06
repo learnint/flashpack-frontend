@@ -9,5 +9,6 @@ export interface Group {
   tags: string[];
   createdDate: string;
   createdByUserId: string;
+  packCount: number;
   users: User[];
 }

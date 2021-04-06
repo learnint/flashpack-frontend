@@ -49,7 +49,7 @@ export const Groups: React.FC = () => {
               </Flex>
               {groups
                 .filter((group) => group.isJoined)
-                .map(({ id, name, description, isAdmin, users }) => (
+                .map(({ id, name, description, isAdmin, packCount, users }) => (
                   <BlockLink
                     to={`${url}/${id}`}
                     name={name}
@@ -60,8 +60,11 @@ export const Groups: React.FC = () => {
                         : undefined
                     }
                     counts={[
-                      { key: "Packs", value: 0 },
-                      { key: "Members", value: users.length },
+                      { key: "Packs", value: packCount },
+                      {
+                        key: "Members",
+                        value: users.filter((user) => user.isJoined).length,
+                      },
                     ]}
                     key={id}
                   />
