@@ -8,7 +8,6 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
-import { PathParamRedirect } from "router";
 import { Group as GroupModel } from "models";
 import { useColorScheme } from "theme";
 import { PacksList } from "components/pages";
@@ -55,24 +54,32 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
                   )}
                 </Flex>
               </Flex>
-              <PacksList groupId={groupId} isAdmin={group.isAdmin} />
+              <PacksList groupId={group.id} isAdmin={group.isAdmin} />
             </Stack>
           </Route>
           <Route path={`${path}/settings`}>
-            <GroupSettings group={group} />
+            {group.isAdmin ? (
+              <GroupSettings group={group} />
+            ) : (
+              <Redirect to={`/groups/${group.id}`} />
+            )}
           </Route>
           <Route path={`${path}/members`}>
             <GroupMembers group={group} />
           </Route>
           <Route path={`${path}/invite`}>
-            <GroupInvite group={group} />
+            {group.isAdmin ? (
+              <GroupInvite group={group} />
+            ) : (
+              <Redirect to={`/groups/${group.id}`} />
+            )}
           </Route>
           <Route path={path}>
             <Redirect to={`${url}/packs`} />
           </Route>
         </Switch>
       ) : (
-        <PathParamRedirect />
+        <Redirect to="/groups" />
       )}
     </>
   );
