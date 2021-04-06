@@ -95,6 +95,7 @@ export const FormInput: React.FC<FormInputProps> = ({
                 type={type}
                 variant={variant}
                 isDisabled={isDisabled}
+                resize={isDisabled ? "none" : undefined}
               />
             ) : (
               <Input
