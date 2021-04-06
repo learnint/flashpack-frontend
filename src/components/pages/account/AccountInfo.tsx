@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { useUser } from "context";
 import { FormInput } from "components/common";
 import { State } from "models";
-import { email, firstName, lastName } from "validations";
+import { email, firstName, lastName } from "validations/User";
 
 interface AccountInfoProps {
   isEditingState: State<boolean>;

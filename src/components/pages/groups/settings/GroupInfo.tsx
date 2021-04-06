@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { useGroup } from "context";
 import { FormInput } from "components/common";
 import { Group, State } from "models";
-import { name, description } from "validations";
+import { name, description } from "validations/Group";
 
 interface GroupInfoProps {
   group: Group;

@@ -7,7 +7,7 @@ import { useGroup } from "context";
 import { FormInput } from "components/common";
 import { Group } from "models";
 import { useColorScheme } from "theme";
-import { emails } from "validations";
+import { emails } from "validations/Group";
 
 interface GroupInviteProps {
   group: Group;

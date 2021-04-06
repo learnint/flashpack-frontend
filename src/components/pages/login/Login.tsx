@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { useAuth } from "auth";
 import { FormInput } from "components/common";
 import { useColorScheme } from "theme";
-import { email, password } from "validations";
+import { email, password } from "validations/User";
 
 export const Login: React.FC = () => {
   const history = useHistory();

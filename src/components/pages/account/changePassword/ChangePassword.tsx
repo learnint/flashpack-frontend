@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useUser } from "context";
 import { FormInput } from "components/common";
 import { useColorScheme } from "theme";
-import { oldPassword, newPassword, confirmNewPassword } from "validations";
+import { oldPassword, newPassword, confirmNewPassword } from "validations/User";
 
 export const ChangePassword: React.FC = () => {
   const history = useHistory();

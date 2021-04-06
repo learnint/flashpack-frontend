@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useGroup } from "context";
 import { FormInput } from "components/common";
 import { useColorScheme } from "theme";
-import { name, description } from "validations";
+import { name, description } from "validations/Group";
 
 export const CreateGroup: React.FC = () => {
   const history = useHistory();

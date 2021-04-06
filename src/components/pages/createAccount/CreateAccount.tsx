@@ -13,7 +13,7 @@ import {
   firstName,
   lastName,
   password,
-} from "validations";
+} from "validations/User";
 
 export const CreateAccount: React.FC = () => {
   const history = useHistory();
