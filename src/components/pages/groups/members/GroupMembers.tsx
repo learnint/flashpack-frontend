@@ -57,7 +57,7 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
         )}
       </Flex>
       <MembersList users={members} createdByUserId={createdByUserId} />
-      {invited.length > 0 ? (
+      {group.isAdmin && invited.length > 0 ? (
         <>
           <Heading size="md">Invited</Heading>
           <MembersList users={invited} createdByUserId={createdByUserId} />
