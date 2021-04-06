@@ -29,50 +29,52 @@ export const Groups: React.FC = () => {
     leaveGroup,
   } = useGroup();
 
-  return (
-    <>
-      {!isGroupsLoading && !isGroupsError && groups ? (
-        <Switch>
-          <Route path={`${path}/create`}>
-            <CreateGroup />
-          </Route>
-          <Route path={`${path}/:groupId`}>
-            <Group groups={groups} />
-          </Route>
-          <Route path={path}>
-            <Stack w="full" maxW="container.lg">
-              <Flex justifyContent="space-between">
-                <Heading color={colorScheme}>Groups</Heading>
-                <Button onClick={() => history.push(`${url}/create`)}>
-                  Create Group
-                </Button>
-              </Flex>
-              {groups
-                .filter((group) => group.isJoined)
-                .map(({ id, name, description, isAdmin, packCount, users }) => (
-                  <BlockLink
-                    to={`${url}/${id}`}
-                    name={name}
-                    description={description}
-                    onEditClick={
-                      isAdmin
-                        ? () => history.push(`${url}/${id}/settings`)
-                        : undefined
-                    }
-                    counts={[
-                      { key: "Packs", value: packCount },
-                      {
-                        key: "Members",
-                        value: users.filter((user) => user.isJoined).length,
-                      },
-                    ]}
-                    key={id}
-                  />
-                ))}
-              <Heading size="md">Group Invites</Heading>
-              {groups
-                .filter((group) => !group.isJoined)
-                .map(({ id, name, description }) => (
+  if (!isGroupsLoading && !isGroupsError && groups) {
+    const joined = groups.filter((group) => group.isJoined);
+    const invited = groups.filter((group) => !group.isJoined);
+
+    return (
+      <Switch>
+        <Route path={`${path}/create`}>
+          <CreateGroup />
+        </Route>
+        <Route path={`${path}/:groupId`}>
+          <Group groups={groups} />
+        </Route>
+        <Route path={path}>
+          <Stack w="full" maxW="container.lg">
+            <Flex justifyContent="space-between">
+              <Heading color={colorScheme}>Groups</Heading>
+              <Button onClick={() => history.push(`${url}/create`)}>
+                Create Group
+              </Button>
+            </Flex>
+            {joined.map(
+              ({ id, name, description, isAdmin, packCount, users }) => (
+                <BlockLink
+                  to={`${url}/${id}`}
+                  name={name}
+                  description={description}
+                  onEditClick={
+                    isAdmin
+                      ? () => history.push(`${url}/${id}/settings`)
+                      : undefined
+                  }
+                  counts={[
+                    { key: "Packs", value: packCount },
+                    {
+                      key: "Members",
+                      value: users.filter((user) => user.isJoined).length,
+                    },
+                  ]}
+                  key={id}
+                />
+              )
+            )}
+            {invited.length > 0 ? (
+              <>
+                <Heading size="md">Invites</Heading>
+                {invited.map(({ id, name, description }) => (
                   <Flex
                     as="article"
                     justifyContent="space-between"
@@ -124,17 +126,19 @@ export const Groups: React.FC = () => {
                     </Flex>
                   </Flex>
                 ))}
-            </Stack>
-          </Route>
-        </Switch>
-      ) : (
-        <Stack w="full" maxW="container.lg">
-          <Skeleton height="50px" />
-          <Skeleton height="3xs" />
-          <Skeleton height="3xs" />
-          <Skeleton height="3xs" />
-        </Stack>
-      )}
-    </>
+              </>
+            ) : null}
+          </Stack>
+        </Route>
+      </Switch>
+    );
+  }
+  return (
+    <Stack w="full" maxW="container.lg">
+      <Skeleton height="50px" />
+      <Skeleton height="3xs" />
+      <Skeleton height="3xs" />
+      <Skeleton height="3xs" />
+    </Stack>
   );
 };
