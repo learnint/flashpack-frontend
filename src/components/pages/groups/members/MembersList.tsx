@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Avatar, Divider, Text } from "@chakra-ui/react";
+import { Flex, Avatar, Divider, Text, Badge } from "@chakra-ui/react";
 import { User } from "models";
 import { useColorScheme } from "theme";
 
@@ -29,7 +29,11 @@ export const MembersList: React.FC<MembersListProps> = ({
             <Text>
               {firstName} {lastName}
             </Text>
-            {createdByUserId === id ? <Text ml="auto">Admin</Text> : null}
+            {createdByUserId === id ? (
+              <Badge colorScheme="purple" ml="auto">
+                Admin
+              </Badge>
+            ) : null}
           </Flex>
           {users.length !== index + 1 ? <Divider /> : null}
         </React.Fragment>
