@@ -25,6 +25,8 @@ export const useMutateCreateGroup = () => {
     } catch (error) {
       if (error instanceof Response) {
         switch (error.status) {
+          case 400:
+            throw new Error("Invalid request body");
           default:
             throw UnknownServerError(error);
         }

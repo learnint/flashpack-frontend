@@ -26,6 +26,12 @@ export const useMutateInviteGroupUsers = () => {
     } catch (error) {
       if (error instanceof Response) {
         switch (error.status) {
+          case 400:
+            throw new Error("Invalid group ID or request body");
+          case 403:
+            throw new Error("User forbidden from performing this action");
+          case 404:
+            throw new Error("Group not found");
           default:
             throw UnknownServerError(error);
         }
