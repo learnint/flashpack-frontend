@@ -39,7 +39,14 @@ export const Account: React.FC = () => {
               >
                 Change Password
               </Button>
-              <Button onClick={() => logout()}>Logout</Button>
+              <Button
+                onClick={() => {
+                  history.replace("/");
+                  logout();
+                }}
+              >
+                Logout
+              </Button>
             </>
           ) : null}
         </Route>
