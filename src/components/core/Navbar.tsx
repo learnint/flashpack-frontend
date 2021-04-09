@@ -7,10 +7,11 @@ import { FaUser } from "react-icons/fa";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
 interface NavbarProps {
+  isAnonRoute: boolean;
   isMobile: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ isMobile }) => {
+export const Navbar: React.FC<NavbarProps> = ({ isAnonRoute, isMobile }) => {
   const history = useHistory();
   const location = useLocation();
   const { accessToken } = useAuth();
@@ -23,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isMobile }) => {
         <Heading color={colorScheme} size="md">
           Flashpack
         </Heading>
-        {!isMobile ? (
+        {!isAnonRoute && !isMobile ? (
           <Flex w="3xs" justifyContent="space-between" ml="16" pt="0.5">
             <Heading
               size="sm"
@@ -61,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isMobile }) => {
           </Flex>
         ) : null}
         <Box ml="auto">
-          {!["/login", "/createAccount"].includes(location.pathname) ? (
+          {!isAnonRoute ? (
             accessToken ? (
               <IconButton
                 mr="2"

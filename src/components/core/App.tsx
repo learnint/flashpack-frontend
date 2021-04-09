@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, useMediaQuery } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Switch } from "react-router-dom";
+import { Switch, useLocation } from "react-router-dom";
 import { UserProvider, GroupProvider } from "context";
 import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
@@ -11,9 +11,12 @@ import { Account, CreateAccount, Login, Groups, Packs } from "components/pages";
 export const App: React.FC = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
+  const location = useLocation();
+  const isAnonRoute = ["/login", "/createAccount"].includes(location.pathname);
+
   return (
     <Flex w="100vw" h="100vh" direction="column">
-      <Navbar isMobile={isMobile} />
+      <Navbar isAnonRoute={isAnonRoute} isMobile={isMobile} />
       <Flex
         px="4"
         py="2"
@@ -45,7 +48,7 @@ export const App: React.FC = () => {
           <AuthorizedRoute path="/">Home</AuthorizedRoute>
         </Switch>
       </Flex>
-      {isMobile ? <MobileNav /> : null}
+      {!isAnonRoute && isMobile ? <MobileNav /> : null}
       <ReactQueryDevtools initialIsOpen={false} />
     </Flex>
   );
