@@ -1,15 +1,15 @@
 import React from "react";
 import { Heading } from "@chakra-ui/react";
 import { Redirect, useParams } from "react-router-dom";
-import { Pack as PackModel } from "models";
+import { Pack as PackModel, Group } from "models";
 import { useColorScheme } from "theme";
 
 interface PackProps {
   packs: PackModel[];
-  groupId?: string;
+  group?: Group;
 }
 
-export const Pack: React.FC<PackProps> = ({ packs, groupId }) => {
+export const Pack: React.FC<PackProps> = ({ packs, group }) => {
   const { packId } = useParams<{ packId: string }>();
   const colorScheme = useColorScheme();
 
@@ -18,9 +18,12 @@ export const Pack: React.FC<PackProps> = ({ packs, groupId }) => {
   return (
     <>
       {pack ? (
-        <Heading color={colorScheme}>{pack.name}</Heading>
+        <Heading color={colorScheme}>
+          {group ? `${group.name} - ` : null}
+          {pack.name}
+        </Heading>
       ) : (
-        <Redirect to={groupId ? `/groups/${groupId}/packs` : `/packs`} />
+        <Redirect to={group ? `/groups/${group.id}/packs` : `/packs`} />
       )}
     </>
   );

@@ -21,7 +21,7 @@ export const GroupSettings: React.FC<GroupSettingsProps> = ({ group }) => {
 
   return (
     <Stack w="full" maxW="container.sm">
-      <Heading color={colorScheme}>Group Settings</Heading>
+      <Heading color={colorScheme}>{group.name} - Settings</Heading>
       <GroupInfo group={group} isEditingState={[isEditing, setIsEditing]} />
       {!isEditing ? (
         <>

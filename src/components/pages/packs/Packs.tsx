@@ -57,13 +57,13 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
   return (
     <Switch>
       <Route path={`${path}/:packId`}>
-        <Pack packs={group ? groupPacks : packs} groupId={group?.id} />
+        <Pack packs={group ? groupPacks : packs} group={group} />
       </Route>
       <Route path={path}>
         <Stack w="full" maxW="container.lg">
           <Flex justifyContent="space-between">
             <Heading color={colorScheme}>
-              {group ? group.name : "My"} Packs
+              {group ? `${group.name} - ` : "My"} Packs
             </Heading>
             {group ? children : <Button>Create Pack</Button>}
           </Flex>

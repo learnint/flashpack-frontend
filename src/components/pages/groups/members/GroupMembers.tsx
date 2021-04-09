@@ -26,7 +26,7 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
   return (
     <Stack w="full" maxW="container.sm" spacing="4">
       <Flex justifyContent="space-between">
-        <Heading color={colorScheme}>{name} Members</Heading>
+        <Heading color={colorScheme}>{name} - Members</Heading>
         {isAdmin ? (
           <Button onClick={() => history.push(`/groups/${id}/invite`)}>
             Invite

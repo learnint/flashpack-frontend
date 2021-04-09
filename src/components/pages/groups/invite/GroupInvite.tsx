@@ -20,7 +20,7 @@ export const GroupInvite: React.FC<GroupInviteProps> = ({ group }) => {
 
   return (
     <Stack w="full" maxW="container.sm">
-      <Heading color={colorScheme}>Invite Members</Heading>
+      <Heading color={colorScheme}>{group.name} - Invite Members</Heading>
       <Formik
         initialValues={{
           emails: "",
