@@ -74,7 +74,7 @@ const useGroupProvider = () => {
     mutator(
       mutateInviteGroupUsers,
       request,
-      "Users have been invited to the group!"
+      "All valid emails associated with a user have been invited to the group!"
     );
 
   const joinGroup = (request: string) =>
