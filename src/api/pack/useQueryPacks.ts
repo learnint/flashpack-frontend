@@ -3,13 +3,14 @@ import { SomethingWentWrong, UnknownServerError, useFetcher } from "api/config";
 import { Pack } from "models";
 
 export const useQueryPacks = (
+  groupId: string | undefined,
   options?: UseQueryOptions<Pack[], Error, Pack[]>
 ) => {
   const fetcher = useFetcher();
 
-  const getPacks = async () => {
+  const getPacks = async (groupId: string | undefined) => {
     try {
-      return await fetcher<Pack[]>("/packs");
+      return await fetcher<Pack[]>(`/packs?groupId=${groupId}`);
     } catch (error) {
       if (error instanceof Response) {
         switch (error.status) {
@@ -21,5 +22,9 @@ export const useQueryPacks = (
     }
   };
 
-  return useQuery<Pack[], Error>("packs", getPacks, options);
+  return useQuery<Pack[], Error>(
+    ["packs", groupId],
+    () => getPacks(groupId),
+    options
+  );
 };
