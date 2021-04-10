@@ -1,22 +1,34 @@
 import React from "react";
 import { Flex, useMediaQuery } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Switch, useLocation } from "react-router-dom";
+import { Redirect, Switch, useLocation } from "react-router-dom";
 import { UserProvider, GroupProvider, PackProvider } from "context";
 import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
 import { MobileNav } from "./MobileNav";
-import { Account, CreateAccount, Login, Groups, Packs } from "components/pages";
+import {
+  Account,
+  CreateAccount,
+  Login,
+  Groups,
+  Packs,
+  Quiz,
+} from "components/pages";
 
 export const App: React.FC = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const location = useLocation();
   const isAnonRoute = ["/login", "/createAccount"].includes(location.pathname);
+  const isQuizRoute = location.pathname.startsWith("/quiz");
 
   return (
     <Flex w="100vw" h="100vh" direction="column">
-      <Navbar isAnonRoute={isAnonRoute} isMobile={isMobile} />
+      <Navbar
+        isQuizRoute={isQuizRoute}
+        isAnonRoute={isAnonRoute}
+        isMobile={isMobile}
+      />
       <Flex
         px="4"
         py="2"
@@ -47,10 +59,16 @@ export const App: React.FC = () => {
               <Groups />
             </GroupProvider>
           </AuthorizedRoute>
+          <AuthorizedRoute path="/quiz/:packId">
+            <Quiz />
+          </AuthorizedRoute>
+          <AuthorizedRoute path="*">
+            <Redirect to="/" />
+          </AuthorizedRoute>
           <AuthorizedRoute path="/">Home</AuthorizedRoute>
         </Switch>
       </Flex>
-      {!isAnonRoute && isMobile ? <MobileNav /> : null}
+      {!isQuizRoute && !isAnonRoute && isMobile ? <MobileNav /> : null}
       <ReactQueryDevtools initialIsOpen={false} />
     </Flex>
   );

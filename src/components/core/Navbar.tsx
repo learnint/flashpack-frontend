@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Flex, Heading, Button, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Button,
+  IconButton,
+  Progress,
+} from "@chakra-ui/react";
 import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "auth";
 import { useColorScheme } from "theme";
@@ -7,11 +14,16 @@ import { FaUser } from "react-icons/fa";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
 interface NavbarProps {
+  isQuizRoute: boolean;
   isAnonRoute: boolean;
   isMobile: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ isAnonRoute, isMobile }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  isQuizRoute,
+  isAnonRoute,
+  isMobile,
+}) => {
   const history = useHistory();
   const location = useLocation();
   const { accessToken } = useAuth();
@@ -19,12 +31,16 @@ export const Navbar: React.FC<NavbarProps> = ({ isAnonRoute, isMobile }) => {
 
   return (
     <>
-      <Box h="2" bgColor={colorScheme} />
+      {!isQuizRoute ? (
+        <Box h="2" bgColor={colorScheme} />
+      ) : (
+        <Progress hasStripe h="2" colorScheme="purple" value={66} />
+      )}
       <Flex px="4" py="2" alignItems="center">
         <Heading color={colorScheme} size="md">
           Flashpack
         </Heading>
-        {!isAnonRoute && !isMobile ? (
+        {!isQuizRoute && !isAnonRoute && !isMobile ? (
           <Flex w="3xs" justifyContent="space-between" ml="16" pt="0.5">
             <Heading
               size="sm"
@@ -62,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isAnonRoute, isMobile }) => {
           </Flex>
         ) : null}
         <Box ml="auto">
-          {!isAnonRoute ? (
+          {!isQuizRoute && !isAnonRoute ? (
             accessToken ? (
               <IconButton
                 mr="2"

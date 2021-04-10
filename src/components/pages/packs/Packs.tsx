@@ -70,7 +70,7 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
           {(group ? groupPacks : packs).map(
             ({ id, name, description, cardCount }) => (
               <BlockLink
-                to={`${url}/${id}`}
+                to={canEdit ? `${url}/${id}` : `/quiz/${id}`}
                 name={name}
                 description={description}
                 onEditClick={canEdit ? () => {} : undefined}
