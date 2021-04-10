@@ -11,18 +11,18 @@ const packs: PackModel[] = [
     id: "p1",
     name: "Math Midterm",
     description: "To help me study for my math midterm",
-    cards: [],
+    cardCount: 0,
   },
   {
     id: "p2",
     name: "Science Final",
     description: "To help me study for my science final",
-    cards: [],
+    cardCount: 0,
   },
   {
     id: "p3",
     name: "Trivia!",
-    cards: [],
+    cardCount: 0,
   },
 ];
 
@@ -30,17 +30,17 @@ const groupPacks: PackModel[] = [
   {
     id: "p4",
     name: "Test 1",
-    cards: [],
+    cardCount: 0,
   },
   {
     id: "p5",
     name: "Test 2",
-    cards: [],
+    cardCount: 0,
   },
   {
     id: "p6",
     name: "Test 3!",
-    cards: [],
+    cardCount: 0,
   },
 ];
 
@@ -68,13 +68,13 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
             {group ? children : <Button>Create Pack</Button>}
           </Flex>
           {(group ? groupPacks : packs).map(
-            ({ id, name, description, cards }) => (
+            ({ id, name, description, cardCount }) => (
               <BlockLink
                 to={`${url}/${id}`}
                 name={name}
                 description={description}
                 onEditClick={canEdit ? () => {} : undefined}
-                counts={[{ key: "Cards", value: cards.length }]}
+                counts={[{ key: "Cards", value: cardCount }]}
                 key={id}
               />
             )
