@@ -8,6 +8,7 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
+import { PackProvider } from "context";
 import { Group as GroupModel } from "models";
 import { Packs } from "components/pages";
 import { GroupSettings } from "./settings";
@@ -30,26 +31,28 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
       {group ? (
         <Switch>
           <Route path={`${path}/packs`}>
-            <Packs group={group}>
-              <Flex justifyContent="flex-end" wrap="wrap">
-                {group.isAdmin ? (
-                  <>
-                    <Button
-                      ml="2"
-                      mb="2"
-                      onClick={() => history.push(`${url}/settings`)}
-                    >
-                      Settings
+            <PackProvider groupId={group.id}>
+              <Packs group={group}>
+                <Flex justifyContent="flex-end" wrap="wrap">
+                  {group.isAdmin ? (
+                    <>
+                      <Button
+                        ml="2"
+                        mb="2"
+                        onClick={() => history.push(`${url}/settings`)}
+                      >
+                        Settings
+                      </Button>
+                      <Button ml="2">Create Pack</Button>
+                    </>
+                  ) : (
+                    <Button onClick={() => history.push(`${url}/members`)}>
+                      Members
                     </Button>
-                    <Button ml="2">Create Pack</Button>
-                  </>
-                ) : (
-                  <Button onClick={() => history.push(`${url}/members`)}>
-                    Members
-                  </Button>
-                )}
-              </Flex>
-            </Packs>
+                  )}
+                </Flex>
+              </Packs>
+            </PackProvider>
           </Route>
           <Route path={`${path}/settings`}>
             {group.isAdmin ? (

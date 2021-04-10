@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, useMediaQuery } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Switch, useLocation } from "react-router-dom";
-import { UserProvider, GroupProvider } from "context";
+import { UserProvider, GroupProvider, PackProvider } from "context";
 import { AnonymousRoute, AuthorizedRoute } from "router";
 import { Navbar } from "./Navbar";
 import { MobileNav } from "./MobileNav";
@@ -38,7 +38,9 @@ export const App: React.FC = () => {
             </UserProvider>
           </AuthorizedRoute>
           <AuthorizedRoute path="/packs">
-            <Packs />
+            <PackProvider>
+              <Packs />
+            </PackProvider>
           </AuthorizedRoute>
           <AuthorizedRoute path="/groups">
             <GroupProvider>

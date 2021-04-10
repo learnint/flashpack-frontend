@@ -10,7 +10,9 @@ export const useQueryPacks = (
 
   const getPacks = async (groupId: string | undefined) => {
     try {
-      return await fetcher<Pack[]>(`/packs?groupId=${groupId}`);
+      return await fetcher<Pack[]>(
+        groupId ? `/packs?groupId=${groupId}` : "/packs"
+      );
     } catch (error) {
       if (error instanceof Response) {
         switch (error.status) {
