@@ -33,24 +33,15 @@ export const Group: React.FC<GroupProps> = ({ groups }) => {
           <Route path={`${path}/packs`}>
             <PackProvider groupId={group.id}>
               <Packs group={group}>
-                <Flex justifyContent="flex-end" wrap="wrap">
-                  {group.isAdmin ? (
-                    <>
-                      <Button
-                        ml="2"
-                        mb="2"
-                        onClick={() => history.push(`${url}/settings`)}
-                      >
-                        Settings
-                      </Button>
-                      <Button ml="2">Create Pack</Button>
-                    </>
-                  ) : (
-                    <Button onClick={() => history.push(`${url}/members`)}>
-                      Members
-                    </Button>
-                  )}
-                </Flex>
+                {group.isAdmin ? (
+                  <Button onClick={() => history.push(`${url}/settings`)}>
+                    Settings
+                  </Button>
+                ) : (
+                  <Button onClick={() => history.push(`${url}/members`)}>
+                    Members
+                  </Button>
+                )}
               </Packs>
             </PackProvider>
           </Route>

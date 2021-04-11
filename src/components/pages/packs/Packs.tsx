@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Flex, Heading, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Skeleton, Stack } from "@chakra-ui/react";
 import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import { usePack } from "context";
 import { Group } from "models";
@@ -36,13 +36,18 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
               <Heading color={colorScheme}>
                 {group ? `${group.name} - ` : "My"} Packs
               </Heading>
-              {group ? (
-                children
-              ) : (
-                <Button onClick={() => history.push(`${url}/create`)}>
-                  Create Pack
-                </Button>
-              )}
+              <Flex justifyContent="flex-end" wrap="wrap">
+                {group ? (
+                  <Box ml="2" mb="2">
+                    {children}
+                  </Box>
+                ) : null}
+                {isAdmin ? (
+                  <Button ml="2" onClick={() => history.push(`${url}/create`)}>
+                    Create Pack
+                  </Button>
+                ) : null}
+              </Flex>
             </Flex>
             {packs.map(({ id, name, description, cardCount }) => (
               <BlockLink
