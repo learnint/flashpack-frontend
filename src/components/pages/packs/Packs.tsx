@@ -17,13 +17,13 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
 
   const { packs, isPacksLoading, isPacksError } = usePack();
 
-  const canEdit = group ? group.isAdmin : true;
+  const isAdmin = group ? group.isAdmin : true;
 
   if (!isPacksLoading && !isPacksError && packs) {
     return (
       <Switch>
         <Route path={`${path}/:packId`}>
-          <Pack packs={packs} group={group} />
+          <Pack isAdmin={isAdmin} packs={packs} group={group} />
         </Route>
         <Route path={path}>
           <Stack w="full" maxW="container.lg">
@@ -35,10 +35,10 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
             </Flex>
             {packs.map(({ id, name, description, cardCount }) => (
               <BlockLink
-                to={canEdit ? `${url}/${id}` : `/quiz/${id}`}
+                to={isAdmin ? `${url}/${id}` : `/quiz/${id}`}
                 name={name}
                 description={description}
-                onEditClick={canEdit ? () => {} : undefined}
+                onEditClick={isAdmin ? () => {} : undefined}
                 counts={[{ key: "Cards", value: cardCount }]}
                 key={id}
               />

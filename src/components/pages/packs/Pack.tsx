@@ -5,11 +5,12 @@ import { Pack as PackModel, Group } from "models";
 import { useColorScheme } from "theme";
 
 interface PackProps {
+  isAdmin: boolean;
   packs: PackModel[];
   group?: Group;
 }
 
-export const Pack: React.FC<PackProps> = ({ packs, group }) => {
+export const Pack: React.FC<PackProps> = ({ isAdmin, packs, group }) => {
   const { packId } = useParams<{ packId: string }>();
   const colorScheme = useColorScheme();
 
@@ -17,7 +18,7 @@ export const Pack: React.FC<PackProps> = ({ packs, group }) => {
 
   return (
     <>
-      {pack ? (
+      {isAdmin && pack ? (
         <Heading color={colorScheme}>
           {group ? `${group.name} - ` : null}
           {pack.name}
