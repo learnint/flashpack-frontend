@@ -31,12 +31,7 @@ export const GroupSettings: React.FC<GroupSettingsProps> = ({ group }) => {
           </Button>
           <Formik
             initialValues={{}}
-            onSubmit={async () => {
-              const success = await deleteGroup(group.id);
-              if (success) {
-                history.push("/groups");
-              }
-            }}
+            onSubmit={async () => await deleteGroup(group.id)}
           >
             {({ isSubmitting }) => (
               <Form>

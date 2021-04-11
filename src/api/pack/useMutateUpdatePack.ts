@@ -18,7 +18,7 @@ export const useMutateUpdatePack = () => {
   const putPack = async ({ id, body }: PutPackRequest) => {
     try {
       return await fetcher<Pack>(`/pack/${id}`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

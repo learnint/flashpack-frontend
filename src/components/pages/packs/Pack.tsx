@@ -49,7 +49,7 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs, group }) => {
             </Cards>
           </Route>
           <Route path={`${path}/settings`}>
-            <PackSettings />
+            <PackSettings pack={pack} />
           </Route>
           <Route path={path}>
             <Redirect to={`${url}/cards`} />
