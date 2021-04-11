@@ -62,10 +62,12 @@ export const App: React.FC = () => {
           <AuthorizedRoute path="/quiz/:packId">
             <Quiz />
           </AuthorizedRoute>
+          <AuthorizedRoute exact path="/">
+            Home
+          </AuthorizedRoute>
           <AuthorizedRoute path="*">
             <Redirect to="/" />
           </AuthorizedRoute>
-          <AuthorizedRoute path="/">Home</AuthorizedRoute>
         </Switch>
       </Flex>
       {!isQuizRoute && !isAnonRoute && isMobile ? <MobileNav /> : null}
