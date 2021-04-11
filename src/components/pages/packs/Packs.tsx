@@ -25,7 +25,7 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
     return (
       <Switch>
         <Route path={`${path}/create`}>
-          <CreatePack />
+          <CreatePack group={group} />
         </Route>
         <Route path={`${path}/:packId`}>
           <Pack isAdmin={isAdmin} packs={packs} group={group} />
@@ -34,7 +34,7 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
           <Stack w="full" maxW="container.lg">
             <Flex justifyContent="space-between">
               <Heading color={colorScheme}>
-                {group ? `${group.name} - ` : "My"} Packs
+                {group ? `${group.name} -` : "My"} Packs
               </Heading>
               <Flex justifyContent="flex-end" wrap="wrap">
                 {group ? (
