@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Heading, Stack } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { usePack } from "context";
 import { ConfirmButton } from "components/common";
@@ -13,7 +12,6 @@ interface PackSettingsProps {
 }
 
 export const PackSettings: React.FC<PackSettingsProps> = ({ pack }) => {
-  const history = useHistory();
   const colorScheme = useColorScheme();
   const { deletePack } = usePack();
 
