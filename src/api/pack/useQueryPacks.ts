@@ -3,7 +3,7 @@ import { SomethingWentWrong, UnknownServerError, useFetcher } from "api/config";
 import { Pack } from "models";
 
 export const useQueryPacks = (
-  groupId: string | undefined,
+  groupId?: string,
   options?: UseQueryOptions<Pack[], Error, Pack[]>
 ) => {
   const fetcher = useFetcher();
