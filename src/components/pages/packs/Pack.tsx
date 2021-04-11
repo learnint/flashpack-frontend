@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import { Pack as PackModel, Group } from "models";
 import { useColorScheme } from "theme";
+import { Cards } from "./cards";
+import { PackSettings } from "./settings";
 
 interface PackProps {
   isAdmin: boolean;
@@ -32,9 +34,11 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs, group }) => {
               {group ? `${group.name} - ` : null}
               {pack.name}
             </Heading>
-            {/* <Cards /> */}
+            <Cards />
           </Route>
-          <Route path={`${path}/settings`}>{/* <PackSettings /> */}</Route>
+          <Route path={`${path}/settings`}>
+            <PackSettings />
+          </Route>
           <Route path={path}>
             <Redirect to={`${url}/cards`} />
           </Route>

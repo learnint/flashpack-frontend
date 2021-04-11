@@ -6,6 +6,7 @@ import { Group } from "models";
 import { useColorScheme } from "theme";
 import { BlockLink } from "components/common";
 import { Pack } from "./Pack";
+import { CreatePack } from "./create";
 
 interface PacksProps {
   group?: Group;
@@ -23,7 +24,9 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
   if (!isPacksLoading && !isPacksError && packs) {
     return (
       <Switch>
-        <Route path={`${path}/create`}>{/* <CreatePack /> */}</Route>
+        <Route path={`${path}/create`}>
+          <CreatePack />
+        </Route>
         <Route path={`${path}/:packId`}>
           <Pack isAdmin={isAdmin} packs={packs} group={group} />
         </Route>
