@@ -4,10 +4,12 @@ import {
   Button,
   Flex,
   Heading,
+  IconButton,
   RadioGroup,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { FaTimes } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -120,7 +122,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
             />
             <FieldArray name="options">
               {({ insert, remove, push }) => (
-                <div>
+                <Flex direction="column" mb="8">
                   <Flex mb="2">
                     {values.type !== "blank" ? (
                       <Text w="75px" fontWeight="bold">
@@ -149,7 +151,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                               />
                             </Box>
                           ) : null}
-                          <Box flex="auto">
+                          <Flex flex="auto">
                             <FormInput
                               name={`options.${index}`}
                               type={
@@ -160,11 +162,22 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                               touched={touched.question}
                               fast
                             />
-                          </Box>
+                            {values.type !== "tf" && values.type !== "blank" ? (
+                              <IconButton
+                                ml="2"
+                                icon={<FaTimes />}
+                                aria-label="Remove Option"
+                                onClick={() => remove(index)}
+                              />
+                            ) : null}
+                          </Flex>
                         </Flex>
                       ))}
                   </RadioGroup>
-                </div>
+                  {values.type !== "tf" && values.type !== "blank" ? (
+                    <Button onClick={() => push("")}>Add Option</Button>
+                  ) : null}
+                </Flex>
               )}
             </FieldArray>
             <Flex mt="2">
