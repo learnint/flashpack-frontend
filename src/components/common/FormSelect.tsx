@@ -8,7 +8,7 @@ import {
   FormHelperText,
   Select,
 } from "@chakra-ui/react";
-import { Field, FieldProps } from "formik";
+import { Field as SlowField, FastField, FieldProps } from "formik";
 
 interface FormSelectProps {
   name: string;
@@ -21,6 +21,7 @@ interface FormSelectProps {
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   error: string | undefined;
   touched: boolean | undefined;
+  fast?: boolean;
 }
 
 export const FormSelect: React.FC<FormSelectProps> = ({
@@ -34,9 +35,12 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   onChange,
   error,
   touched,
+  fast = false,
 }) => {
   const isInvalid = !!error && touched;
   const variant = isDisabled ? "unstyled" : "filled";
+
+  const Field = fast ? FastField : SlowField;
 
   return (
     <Field name={name}>

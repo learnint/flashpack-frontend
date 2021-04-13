@@ -9,7 +9,7 @@ import {
   Radio,
   Checkbox,
 } from "@chakra-ui/react";
-import { Field, FieldProps } from "formik";
+import { Field as SlowField, FastField, FieldProps } from "formik";
 
 interface FormCheckRadioProps {
   name: string;
@@ -21,6 +21,7 @@ interface FormCheckRadioProps {
   value: number;
   error: string | undefined;
   touched: boolean | undefined;
+  fast?: boolean;
 }
 
 export const FormCheckRadio: React.FC<FormCheckRadioProps> = ({
@@ -33,8 +34,11 @@ export const FormCheckRadio: React.FC<FormCheckRadioProps> = ({
   value,
   error,
   touched,
+  fast = false,
 }) => {
   const isInvalid = !!error && touched;
+
+  const Field = fast ? FastField : SlowField;
 
   return (
     <Field name={name}>

@@ -12,7 +12,12 @@ import {
   Textarea,
   FormHelperText,
 } from "@chakra-ui/react";
-import { Field, FieldInputProps, FieldProps } from "formik";
+import {
+  Field as SlowField,
+  FastField,
+  FieldInputProps,
+  FieldProps,
+} from "formik";
 import { State } from "models";
 
 interface FormInputProps {
@@ -26,6 +31,7 @@ interface FormInputProps {
   isLoading?: boolean;
   error: string | undefined;
   touched: boolean | undefined;
+  fast?: boolean;
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -39,9 +45,12 @@ export const FormInput: React.FC<FormInputProps> = ({
   isLoading,
   error,
   touched,
+  fast = false,
 }) => {
   const isInvalid = !!error && touched;
   const variant = isDisabled ? "unstyled" : "filled";
+
+  const Field = fast ? FastField : SlowField;
 
   const renderPasswordInput = (
     field: FieldInputProps<any>,

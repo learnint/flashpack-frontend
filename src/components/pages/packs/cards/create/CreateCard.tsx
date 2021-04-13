@@ -107,6 +107,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
               }}
               error={errors.type}
               touched={touched.type}
+              fast
             />
             <FormInput
               name="question"
@@ -115,6 +116,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
               type="textarea"
               error={errors.question}
               touched={touched.question}
+              fast
             />
             <FieldArray name="options">
               {({ insert, remove, push }) => (
@@ -143,6 +145,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                                 }
                                 error={errors.question}
                                 touched={touched.question}
+                                fast
                               />
                             </Box>
                           ) : null}
@@ -155,6 +158,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                               isDisabled={values.type === "tf"}
                               error={errors.question}
                               touched={touched.question}
+                              fast
                             />
                           </Box>
                         </Flex>
