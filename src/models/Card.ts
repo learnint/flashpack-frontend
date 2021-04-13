@@ -2,7 +2,9 @@ import { Option } from "models";
 
 export interface Card {
   id: string;
-  type: "mc" | "tf" | "chk" | "blank";
+  type: CardType;
   question: string;
   options: Option[];
 }
+
+export type CardType = "tf" | "mc" | "chk" | "blank";

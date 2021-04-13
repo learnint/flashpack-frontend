@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import { useColorScheme } from "theme";
 import { Pack } from "models";
+import { CreateCard } from "./create";
 
 interface CardsProps {
   pack: Pack;
@@ -19,6 +20,7 @@ export const Cards: React.FC<CardsProps> = ({ children, pack }) => {
           <Button ml="2">Create Card</Button>
         </Flex>
       </Flex>
+      <CreateCard pack={pack} groupId="" />
     </Stack>
   );
 };
