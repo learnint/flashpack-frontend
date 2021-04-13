@@ -166,6 +166,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                                 icon={<FaTimes />}
                                 aria-label="Remove Option"
                                 onClick={() => remove(index)}
+                                isDisabled={values.options.length <= 2}
                               />
                             ) : null}
                           </Flex>
@@ -173,7 +174,12 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                       ))}
                   </RadioGroup>
                   {values.type !== "tf" && values.type !== "blank" ? (
-                    <Button onClick={() => push("")}>Add Option</Button>
+                    <Button
+                      onClick={() => push("")}
+                      isDisabled={values.options.length >= 10}
+                    >
+                      Add Option
+                    </Button>
                   ) : null}
                 </Flex>
               )}
