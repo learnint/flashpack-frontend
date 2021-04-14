@@ -11,4 +11,14 @@ export const Components: ThemeComponents = {
       colorScheme: "purple",
     },
   },
+  Checkbox: {
+    defaultProps: {
+      colorScheme: "purple",
+    },
+  },
+  Radio: {
+    defaultProps: {
+      colorScheme: "purple",
+    },
+  },
 };
