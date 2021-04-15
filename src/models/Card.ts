@@ -7,4 +7,9 @@ export interface Card {
   options: Option[];
 }
 
-export type CardType = "TF" | "MC" | "CHK" | "BLANK";
+export enum CardType {
+  MC = "MC",
+  TF = "TF",
+  CHK = "CHK",
+  BLANK = "BLANK",
+}

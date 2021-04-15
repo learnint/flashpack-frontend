@@ -17,7 +17,7 @@ interface BlockLinkProps {
   name: string;
   description?: string;
   onEditClick?: () => void;
-  counts: { key: string; value: number }[];
+  counts?: { key: string; value: number }[];
 }
 
 export const BlockLink: React.FC<BlockLinkProps> = ({
@@ -52,16 +52,18 @@ export const BlockLink: React.FC<BlockLinkProps> = ({
             />
           ) : null}
         </Flex>
-        <Flex p="2" mt="2" alignSelf="flex-end">
-          {counts.map(({ key, value }, index) => (
-            <Text
-              mr={counts.length !== index + 1 ? "2" : undefined}
-              key={index}
-            >
-              {key}: {value}
-            </Text>
-          ))}
-        </Flex>
+        {counts ? (
+          <Flex p="2" mt="2" alignSelf="flex-end">
+            {counts.map(({ key, value }, index) => (
+              <Text
+                mr={counts.length !== index + 1 ? "2" : undefined}
+                key={index}
+              >
+                {key}: {value}
+              </Text>
+            ))}
+          </Flex>
+        ) : null}
       </Flex>
     </LinkBox>
   );

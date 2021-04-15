@@ -19,6 +19,7 @@ import { CardType, Pack } from "models";
 import { useColorScheme } from "theme";
 import { type, question, answerIndex, options } from "validations/Card";
 import { onePathBack } from "router";
+import { convertCardType } from "../convertCardType";
 
 interface CreateCardProps {
   pack: Pack;
@@ -36,14 +37,14 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
     prevOptions: string[]
   ) => {
     switch (type) {
-      case "TF":
+      case CardType.TF:
         return ["True", "False"];
-      case "MC":
-      case "CHK":
-        return prevType === "MC" || prevType === "CHK"
+      case CardType.MC:
+      case CardType.CHK:
+        return prevType === CardType.MC || prevType === CardType.CHK
           ? prevOptions
           : ["", "", ""];
-      case "BLANK":
+      case CardType.BLANK:
         return [""];
     }
   };
@@ -60,7 +61,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
         options: string[];
       }>
         initialValues={{
-          type: "TF",
+          type: CardType.TF,
           question: "",
           answerIndex: "",
           options: ["True", "False"],
@@ -92,14 +93,20 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
               name="type"
               label="Type"
               options={[
-                { value: "TF", label: "True/False" },
-                { value: "MC", label: "Multiple Choice" },
-                { value: "CHK", label: "Check All That Apply" },
-                { value: "BLANK", label: "Fill In The Blank" },
+                { value: CardType.TF, label: convertCardType(CardType.TF) },
+                { value: CardType.MC, label: convertCardType(CardType.MC) },
+                { value: CardType.CHK, label: convertCardType(CardType.CHK) },
+                {
+                  value: CardType.BLANK,
+                  label: convertCardType(CardType.BLANK),
+                },
               ]}
               onChange={(e) => {
                 const type = e.currentTarget.value as CardType;
-                setFieldValue("answerIndex", type === "BLANK" ? "0" : "");
+                setFieldValue(
+                  "answerIndex",
+                  type === CardType.BLANK ? "0" : ""
+                );
                 setFieldValue(
                   "options",
                   getCardOptions(type, values.type, values.options)
@@ -120,26 +127,28 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
               {({ insert, remove, push }) => (
                 <Flex direction="column" mb="8">
                   <Flex mb="2">
-                    {values.type !== "BLANK" ? (
+                    {values.type !== CardType.BLANK ? (
                       <Text w="75px" fontWeight="bold">
                         Correct
                       </Text>
                     ) : null}
                     <Text fontWeight="bold">
-                      {values.type !== "BLANK" ? "Options" : "Answer"}
+                      {values.type !== CardType.BLANK ? "Options" : "Answer"}
                     </Text>
                   </Flex>
                   <RadioGroup key={values.type}>
                     {values.options.length > 0 &&
                       values.options.map((_, index) => (
                         <Flex alignItems="flex-start" key={index}>
-                          {values.type !== "BLANK" ? (
+                          {values.type !== CardType.BLANK ? (
                             <Box w="75px" shrink={0}>
                               <FormCheckRadio
                                 name="answerIndex"
                                 value={index}
                                 type={
-                                  values.type === "CHK" ? "checkbox" : "radio"
+                                  values.type === CardType.CHK
+                                    ? "checkbox"
+                                    : "radio"
                                 }
                                 error={errors.answerIndex}
                                 touched={touched.answerIndex}
@@ -150,9 +159,11 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                             <FormInput
                               name={`options.${index}`}
                               type={
-                                values.type !== "TF" ? "textarea" : undefined
+                                values.type !== CardType.TF
+                                  ? "textarea"
+                                  : undefined
                               }
-                              isDisabled={values.type === "TF"}
+                              isDisabled={values.type === CardType.TF}
                               error={
                                 Array.isArray(errors.options)
                                   ? errors.options[index]
@@ -164,7 +175,8 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                                   : touched.options
                               }
                             />
-                            {values.type !== "TF" && values.type !== "BLANK" ? (
+                            {values.type !== CardType.TF &&
+                            values.type !== CardType.BLANK ? (
                               <IconButton
                                 ml="2"
                                 icon={<FaTimes />}
@@ -177,7 +189,8 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                         </Flex>
                       ))}
                   </RadioGroup>
-                  {values.type !== "TF" && values.type !== "BLANK" ? (
+                  {values.type !== CardType.TF &&
+                  values.type !== CardType.BLANK ? (
                     <Button
                       onClick={() => push("")}
                       isDisabled={values.options.length >= 10}
