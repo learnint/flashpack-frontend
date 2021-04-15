@@ -28,7 +28,7 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
           <CreatePack group={group} />
         </Route>
         <Route path={`${path}/:packId`}>
-          <Pack isAdmin={isAdmin} packs={packs} group={group} />
+          <Pack isAdmin={isAdmin} packs={packs} />
         </Route>
         <Route path={path}>
           <Stack w="full" maxW="container.lg">

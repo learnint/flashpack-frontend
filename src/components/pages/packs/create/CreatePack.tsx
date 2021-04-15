@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Flex, Heading, Stack } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { usePack } from "context";
@@ -8,6 +8,7 @@ import { FormInput } from "components/common";
 import { useColorScheme } from "theme";
 import { Group } from "models";
 import { name, description } from "validations/Pack";
+import { onePathBack } from "router";
 
 interface CreatePackProps {
   group: Group | undefined;
@@ -15,10 +16,11 @@ interface CreatePackProps {
 
 export const CreatePack: React.FC<CreatePackProps> = ({ group }) => {
   const history = useHistory();
+  const { url } = useRouteMatch();
   const colorScheme = useColorScheme();
   const { createPack } = usePack();
 
-  const packsPath = group ? `/groups/${group.id}/packs` : "/packs";
+  const packsPath = onePathBack(url);
 
   return (
     <Stack w="full" maxW="container.sm">

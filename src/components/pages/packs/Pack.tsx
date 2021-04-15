@@ -9,17 +9,17 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
-import { Pack as PackModel, Group } from "models";
+import { Pack as PackModel } from "models";
 import { Cards } from "./cards";
 import { PackSettings } from "./settings";
+import { onePathBack } from "router";
 
 interface PackProps {
   isAdmin: boolean;
   packs: PackModel[];
-  group?: Group;
 }
 
-export const Pack: React.FC<PackProps> = ({ isAdmin, packs, group }) => {
+export const Pack: React.FC<PackProps> = ({ isAdmin, packs }) => {
   const history = useHistory();
   const { path, url } = useRouteMatch();
   const { packId } = useParams<{ packId: string }>();
@@ -56,7 +56,7 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs, group }) => {
           </Route>
         </Switch>
       ) : (
-        <Redirect to={group ? `/groups/${group.id}/packs` : `/packs`} />
+        <Redirect to={onePathBack(url)} />
       )}
     </>
   );

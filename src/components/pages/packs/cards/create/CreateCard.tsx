@@ -10,21 +10,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { FormInput, FormSelect, FormCheckRadio } from "components/common";
 import { CardType, Pack } from "models";
 import { useColorScheme } from "theme";
 import { type, question, answerIndex, options } from "validations/Card";
+import { onePathBack } from "router";
 
 interface CreateCardProps {
   pack: Pack;
-  groupId: string;
 }
 
-export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
+export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
   const history = useHistory();
+  const { url } = useRouteMatch();
   const colorScheme = useColorScheme();
   // const { createCard } = useCard();
 
@@ -46,9 +47,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
     }
   };
 
-  const cardsPath = groupId
-    ? `/groups/${groupId}/packs/${pack.id}/cards`
-    : `/packs/${pack.id}/cards`;
+  const cardsPath = onePathBack(url);
 
   return (
     <Stack w="full" maxW="container.sm">

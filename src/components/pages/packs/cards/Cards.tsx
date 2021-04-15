@@ -18,7 +18,7 @@ export const Cards: React.FC<CardsProps> = ({ children, pack }) => {
   return (
     <Switch>
       <Route path={`${path}/create`}>
-        <CreateCard pack={pack} groupId="" />
+        <CreateCard pack={pack} />
       </Route>
       <Route path={`${path}/:cardId`}>
         <Card />
