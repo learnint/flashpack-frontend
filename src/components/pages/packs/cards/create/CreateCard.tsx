@@ -13,10 +13,10 @@ import { FaTimes } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { FormInput, FormSelect } from "components/common";
+import { FormInput, FormSelect, FormCheckRadio } from "components/common";
 import { CardType, Pack } from "models";
 import { useColorScheme } from "theme";
-import { FormCheckRadio } from "components/common/FormCheckRadio";
+import { type, question, answerIndex, options } from "validations/Card";
 
 interface CreateCardProps {
   pack: Pack;
@@ -65,7 +65,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
           answerIndex: "",
           options: ["True", "False"],
         }}
-        validationSchema={Yup.object({})}
+        validationSchema={Yup.object({ type, question, answerIndex, options })}
         onSubmit={async ({ type, question, answerIndex, options }) => {
           // const success = await createPack({
           //   groupId: group?.id,
@@ -87,8 +87,8 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
           );
           alert(JSON.stringify(card, null, 4));
         }}
-        // Without this, form performance is bloody abysmal
-        validateOnChange={false}
+        // Without this, form performance is bloody abysmal - *UPDATE* this applies to develop server only, fine in production
+        // validateOnChange={false}
       >
         {({ values, setFieldValue, isSubmitting, errors, touched }) => (
           <Form>
@@ -145,8 +145,8 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                                 type={
                                   values.type === "chk" ? "checkbox" : "radio"
                                 }
-                                error={errors.question}
-                                touched={touched.question}
+                                error={errors.answerIndex}
+                                touched={touched.answerIndex}
                               />
                             </Box>
                           ) : null}
@@ -157,8 +157,16 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack, groupId }) => {
                                 values.type !== "tf" ? "textarea" : undefined
                               }
                               isDisabled={values.type === "tf"}
-                              error={errors.question}
-                              touched={touched.question}
+                              error={
+                                Array.isArray(errors.options)
+                                  ? errors.options[index]
+                                  : errors.options
+                              }
+                              touched={
+                                Array.isArray(touched.options)
+                                  ? touched.options[index]
+                                  : touched.options
+                              }
                             />
                             {values.type !== "tf" && values.type !== "blank" ? (
                               <IconButton
