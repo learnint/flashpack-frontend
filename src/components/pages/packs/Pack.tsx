@@ -39,7 +39,7 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs }) => {
                   mb="2"
                   icon={<FaPlay />}
                   aria-label="Play Pack"
-                  onClick={() => {}}
+                  onClick={() => history.push(`/quiz/${pack.id}`)}
                 />
                 <Button
                   ml="2"
