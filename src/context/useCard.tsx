@@ -1,9 +1,13 @@
 import React, { createContext, useContext } from "react";
-import { PostCardRequest, useMutateCreateCard } from "api";
+import { PostCardRequest, useMutateCreateCard, useQueryCards } from "api";
 import { useToast } from "components/common";
+import { Card } from "models";
 import { useMutator } from "./config";
 
 interface CardContext {
+  cards: Card[] | undefined;
+  isCardsLoading: boolean;
+  isCardsError: boolean;
   createCard: (request: PostCardRequest) => Promise<boolean>;
 }
 
@@ -20,22 +24,43 @@ export const useCard = () => {
   return context;
 };
 
-const useCardProvider = () => {
+const useCardProvider = (packId: string) => {
   const { toast } = useToast();
 
   const mutator = useMutator();
 
   const mutateCreateCard = useMutateCreateCard();
 
+  const { data, isLoading, isError } = useQueryCards(packId, {
+    onError: (error) => {
+      toast({
+        title: error.message,
+        status: "error",
+      });
+    },
+  });
+
   const createCard = async (request: PostCardRequest) =>
     mutator(mutateCreateCard, request, "Card created!");
 
-  return { createCard };
+  return {
+    cards: data,
+    isCardsLoading: isLoading,
+    isCardsError: isError,
+    createCard,
+  };
 };
 
-export const CardProvider: React.FC = ({ children }) => {
+interface CardProviderProps {
+  packId: string;
+}
+
+export const CardProvider: React.FC<CardProviderProps> = ({
+  children,
+  packId,
+}) => {
   return (
-    <CardContext.Provider value={useCardProvider()}>
+    <CardContext.Provider value={useCardProvider(packId)}>
       {children}
     </CardContext.Provider>
   );

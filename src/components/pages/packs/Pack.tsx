@@ -32,7 +32,7 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs }) => {
       {isAdmin && pack ? (
         <Switch>
           <Route path={`${path}/cards`}>
-            <CardProvider>
+            <CardProvider packId={pack.id}>
               <Cards pack={pack}>
                 <IconButton
                   ml="2"
