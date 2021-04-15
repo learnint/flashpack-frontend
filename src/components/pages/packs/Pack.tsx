@@ -9,6 +9,7 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
+import { CardProvider } from "context";
 import { Pack as PackModel } from "models";
 import { Cards } from "./cards";
 import { PackSettings } from "./settings";
@@ -31,22 +32,24 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs }) => {
       {isAdmin && pack ? (
         <Switch>
           <Route path={`${path}/cards`}>
-            <Cards pack={pack}>
-              <IconButton
-                ml="2"
-                mb="2"
-                icon={<FaPlay />}
-                aria-label="Play Pack"
-                onClick={() => {}}
-              />
-              <Button
-                ml="2"
-                mb="2"
-                onClick={() => history.push(`${url}/settings`)}
-              >
-                Settings
-              </Button>
-            </Cards>
+            <CardProvider>
+              <Cards pack={pack}>
+                <IconButton
+                  ml="2"
+                  mb="2"
+                  icon={<FaPlay />}
+                  aria-label="Play Pack"
+                  onClick={() => {}}
+                />
+                <Button
+                  ml="2"
+                  mb="2"
+                  onClick={() => history.push(`${url}/settings`)}
+                >
+                  Settings
+                </Button>
+              </Cards>
+            </CardProvider>
           </Route>
           <Route path={`${path}/settings`}>
             <PackSettings pack={pack} />

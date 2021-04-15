@@ -7,4 +7,4 @@ export interface Card {
   options: Option[];
 }
 
-export type CardType = "tf" | "mc" | "chk" | "blank";
+export type CardType = "TF" | "MC" | "CHK" | "BLANK";
