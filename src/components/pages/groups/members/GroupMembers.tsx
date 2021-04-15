@@ -34,12 +34,7 @@ export const GroupMembers: React.FC<GroupMembersProps> = ({ group }) => {
         ) : (
           <Formik
             initialValues={{}}
-            onSubmit={async () => {
-              const success = await leaveGroup(id);
-              if (success) {
-                history.push("/groups");
-              }
-            }}
+            onSubmit={async () => await leaveGroup(id)}
           >
             {({ isSubmitting }) => (
               <Form>
