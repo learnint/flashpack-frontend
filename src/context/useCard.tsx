@@ -1,5 +1,11 @@
 import React, { createContext, useContext } from "react";
-import { PostCardRequest, useMutateCreateCard, useQueryCards } from "api";
+import {
+  PostCardRequest,
+  PutCardRequest,
+  useMutateCreateCard,
+  useMutateUpdateCard,
+  useQueryCards,
+} from "api";
 import { useToast } from "components/common";
 import { Card } from "models";
 import { useMutator } from "./config";
@@ -9,6 +15,7 @@ interface CardContext {
   isCardsLoading: boolean;
   isCardsError: boolean;
   createCard: (request: PostCardRequest) => Promise<boolean>;
+  updateCard: (request: PutCardRequest) => Promise<boolean>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -30,6 +37,7 @@ const useCardProvider = (packId: string) => {
   const mutator = useMutator();
 
   const mutateCreateCard = useMutateCreateCard();
+  const mutateUpdateCard = useMutateUpdateCard();
 
   const { data, isLoading, isError } = useQueryCards(packId, {
     onError: (error) => {
@@ -43,11 +51,15 @@ const useCardProvider = (packId: string) => {
   const createCard = async (request: PostCardRequest) =>
     mutator(mutateCreateCard, request, "Card created!");
 
+  const updateCard = async (request: PutCardRequest) =>
+    mutator(mutateUpdateCard, request, "Card info updated!");
+
   return {
     cards: data,
     isCardsLoading: isLoading,
     isCardsError: isError,
     createCard,
+    updateCard,
   };
 };
 

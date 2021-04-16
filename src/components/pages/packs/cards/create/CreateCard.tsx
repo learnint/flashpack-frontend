@@ -78,6 +78,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
             options: options.map((option, index) => ({
               text: option,
               isCorrect: answerIndex.includes(index.toString()),
+              order: index,
             })),
           };
           const success = await createCard({
