@@ -27,7 +27,7 @@ export const Cards: React.FC<CardsProps> = ({ children, pack }) => {
           <CreateCard pack={pack} />
         </Route>
         <Route path={`${path}/:cardId`}>
-          <Card />
+          <Card cards={cards} />
         </Route>
         <Route path={path}>
           <Stack w="full" maxW="container.lg">
