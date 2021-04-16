@@ -141,7 +141,10 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                       {values.type !== CardType.BLANK ? "Options" : "Answer"}
                     </Text>
                   </Flex>
-                  <FormCheckRadioGroup key={values.type}>
+                  <FormCheckRadioGroup
+                    key={values.type}
+                    value={values.answerIndex}
+                  >
                     {values.options.length > 0 &&
                       values.options.map((_, index) => (
                         <Flex alignItems="flex-start" key={index}>
@@ -186,7 +189,10 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                                 ml="2"
                                 icon={<FaTimes />}
                                 aria-label="Remove Option"
-                                onClick={() => remove(index)}
+                                onClick={() => {
+                                  setFieldValue("answerIndex", "");
+                                  remove(index);
+                                }}
                                 isDisabled={values.options.length <= 2}
                               />
                             ) : null}

@@ -2,17 +2,15 @@ import React from "react";
 import { CheckboxGroup, RadioGroup } from "@chakra-ui/react";
 
 interface FormCheckRadioGroupProps {
-  defaultValue?: string | string[];
+  value?: string | string[];
 }
 
 export const FormCheckRadioGroup: React.FC<FormCheckRadioGroupProps> = ({
   children,
-  defaultValue,
+  value,
 }) => {
-  if (Array.isArray(defaultValue)) {
-    return (
-      <CheckboxGroup defaultValue={defaultValue}>{children}</CheckboxGroup>
-    );
+  if (Array.isArray(value)) {
+    return <CheckboxGroup value={value}>{children}</CheckboxGroup>;
   }
-  return <RadioGroup defaultValue={defaultValue}>{children}</RadioGroup>;
+  return <RadioGroup value={value}>{children}</RadioGroup>;
 };

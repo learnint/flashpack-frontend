@@ -137,7 +137,7 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
                 </Flex>
                 <FormCheckRadioGroup
                   key={values.type}
-                  defaultValue={values.answerIndex}
+                  value={values.answerIndex}
                 >
                   {values.options.length > 0 &&
                     values.options.map((_, index) => (
@@ -186,7 +186,10 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
                               ml="2"
                               icon={<FaTimes />}
                               aria-label="Remove Option"
-                              onClick={() => remove(index)}
+                              onClick={() => {
+                                setFieldValue("answerIndex", "");
+                                remove(index);
+                              }}
                               isDisabled={values.options.length <= 2}
                             />
                           ) : null}
