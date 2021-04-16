@@ -18,7 +18,7 @@ interface FormCheckRadioProps {
   type?: "radio" | "checkbox";
   isDisabled?: boolean;
   isLoading?: boolean;
-  value: number;
+  value: string;
   error: string | undefined;
   touched: boolean | undefined;
   fast?: boolean;
@@ -55,7 +55,7 @@ export const FormCheckRadio: React.FC<FormCheckRadioProps> = ({
               <Checkbox
                 {...field}
                 id={name}
-                value={value.toString()}
+                value={value}
                 isDisabled={isDisabled}
                 size="lg"
               />
@@ -63,7 +63,7 @@ export const FormCheckRadio: React.FC<FormCheckRadioProps> = ({
               <Radio
                 {...field}
                 id={name}
-                value={value.toString()}
+                value={value}
                 isDisabled={isDisabled}
                 size="lg"
               />

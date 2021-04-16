@@ -5,7 +5,6 @@ import {
   Flex,
   Heading,
   IconButton,
-  RadioGroup,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -14,7 +13,12 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useCard } from "context";
-import { FormInput, FormSelect, FormCheckRadio } from "components/common";
+import {
+  FormInput,
+  FormSelect,
+  FormCheckRadio,
+  FormCheckRadioGroup,
+} from "components/common";
 import { CardType, Pack } from "models";
 import { useColorScheme } from "theme";
 import { type, question, answerIndex, options } from "validations/Card";
@@ -136,7 +140,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                       {values.type !== CardType.BLANK ? "Options" : "Answer"}
                     </Text>
                   </Flex>
-                  <RadioGroup key={values.type}>
+                  <FormCheckRadioGroup key={values.type}>
                     {values.options.length > 0 &&
                       values.options.map((_, index) => (
                         <Flex alignItems="flex-start" key={index}>
@@ -144,7 +148,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                             <Box w="75px" shrink={0}>
                               <FormCheckRadio
                                 name="answerIndex"
-                                value={index}
+                                value={index.toString()}
                                 type={
                                   values.type === CardType.CHK
                                     ? "checkbox"
@@ -188,7 +192,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                           </Flex>
                         </Flex>
                       ))}
-                  </RadioGroup>
+                  </FormCheckRadioGroup>
                   {values.type !== CardType.TF &&
                   values.type !== CardType.BLANK ? (
                     <Button
