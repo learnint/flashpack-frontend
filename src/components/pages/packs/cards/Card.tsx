@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Heading, Stack } from "@chakra-ui/react";
 import { Redirect, useParams, useRouteMatch } from "react-router-dom";
 import { Form, Formik } from "formik";
+import { useCard } from "context";
 import { ConfirmButton } from "components/common";
 import { onePathBack } from "router";
 import { Card as CardModel } from "models";
@@ -17,7 +18,7 @@ export const Card: React.FC<CardProps> = ({ cards }) => {
   const { cardId } = useParams<{ cardId: string }>();
   const colorScheme = useColorScheme();
 
-  // const { deleteCard } = useCard();
+  const { deleteCard } = useCard();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -34,10 +35,7 @@ export const Card: React.FC<CardProps> = ({ cards }) => {
               <Button onClick={() => setIsEditing(true)}>Edit Card Info</Button>
               <Formik
                 initialValues={{}}
-                onSubmit={
-                  () => {}
-                  // async () => await deleteCard(card.id)
-                }
+                onSubmit={async () => await deleteCard(card.id)}
               >
                 {({ isSubmitting }) => (
                   <Form>

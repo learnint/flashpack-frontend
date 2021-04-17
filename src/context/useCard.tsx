@@ -3,6 +3,7 @@ import {
   PostCardRequest,
   PutCardRequest,
   useMutateCreateCard,
+  useMutateDeleteCard,
   useMutateUpdateCard,
   useQueryCards,
 } from "api";
@@ -16,6 +17,7 @@ interface CardContext {
   isCardsError: boolean;
   createCard: (request: PostCardRequest) => Promise<boolean>;
   updateCard: (request: PutCardRequest) => Promise<boolean>;
+  deleteCard: (request: string) => Promise<boolean>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -38,6 +40,7 @@ const useCardProvider = (packId: string) => {
 
   const mutateCreateCard = useMutateCreateCard();
   const mutateUpdateCard = useMutateUpdateCard();
+  const mutateDeleteCard = useMutateDeleteCard();
 
   const { data, isLoading, isError } = useQueryCards(packId, {
     onError: (error) => {
@@ -54,12 +57,16 @@ const useCardProvider = (packId: string) => {
   const updateCard = async (request: PutCardRequest) =>
     mutator(mutateUpdateCard, request, "Card info updated!");
 
+  const deleteCard = async (request: string) =>
+    mutator(mutateDeleteCard, request, "Card deleted!");
+
   return {
     cards: data,
     isCardsLoading: isLoading,
     isCardsError: isError,
     createCard,
     updateCard,
+    deleteCard,
   };
 };
 
