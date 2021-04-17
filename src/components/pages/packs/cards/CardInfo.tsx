@@ -106,7 +106,7 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
             touched={touched.question}
           />
           <FieldArray name="options">
-            {({ insert, remove, push }) => (
+            {({ remove, push }) => (
               <Flex direction="column" mb="8">
                 <Flex mb="2">
                   {values.type !== CardType.BLANK ? (
