@@ -181,7 +181,8 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
                       </Flex>
                     ))}
                 </FormCheckRadioGroup>
-                {values.type !== CardType.TF &&
+                {isEditing &&
+                values.type !== CardType.TF &&
                 values.type !== CardType.BLANK ? (
                   <Button
                     mb="8"
