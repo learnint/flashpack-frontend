@@ -24,6 +24,7 @@ import { useColorScheme } from "theme";
 import { type, question, answerIndex, options } from "validations/Card";
 import { onePathBack } from "router";
 import { convertCardType } from "../convertCardType";
+import { getDefaultCardOptions } from "../getDefaultCardOptions";
 
 interface CreateCardProps {
   pack: Pack;
@@ -34,24 +35,6 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
   const { url } = useRouteMatch();
   const colorScheme = useColorScheme();
   const { createCard } = useCard();
-
-  const getCardOptions = (
-    type: CardType,
-    prevType: CardType,
-    prevOptions: string[]
-  ) => {
-    switch (type) {
-      case CardType.TF:
-        return ["True", "False"];
-      case CardType.MC:
-      case CardType.CHK:
-        return prevType === CardType.MC || prevType === CardType.CHK
-          ? prevOptions
-          : ["", "", ""];
-      case CardType.BLANK:
-        return [""];
-    }
-  };
 
   const cardsPath = onePathBack(url);
 
@@ -114,7 +97,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                 );
                 setFieldValue(
                   "options",
-                  getCardOptions(type, values.type, values.options)
+                  getDefaultCardOptions(type, values.type, values.options)
                 );
               }}
               error={errors.type}

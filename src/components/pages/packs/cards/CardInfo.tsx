@@ -13,6 +13,7 @@ import {
 } from "components/common";
 import { type, question, answerIndex, options } from "validations/Card";
 import { convertCardType } from "./convertCardType";
+import { getDefaultCardOptions } from "./getDefaultCardOptions";
 
 interface CardInfoProps {
   card: Card;
@@ -23,24 +24,6 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
   const { updateCard } = useCard();
 
   const [isEditing, setIsEditing] = isEditingState;
-
-  const getCardOptions = (
-    type: CardType,
-    prevType: CardType,
-    prevOptions: string[]
-  ) => {
-    switch (type) {
-      case CardType.TF:
-        return ["True", "False"];
-      case CardType.MC:
-      case CardType.CHK:
-        return prevType === CardType.MC || prevType === CardType.CHK
-          ? prevOptions
-          : ["", "", ""];
-      case CardType.BLANK:
-        return [""];
-    }
-  };
 
   const sortedCardOptions = card.options.sort((a, b) => a.order - b.order);
 
@@ -106,7 +89,7 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
               setFieldValue("answerIndex", type === CardType.BLANK ? "0" : "");
               setFieldValue(
                 "options",
-                getCardOptions(type, values.type, values.options)
+                getDefaultCardOptions(type, values.type, values.options)
               );
             }}
             isDisabled={!isEditing}
