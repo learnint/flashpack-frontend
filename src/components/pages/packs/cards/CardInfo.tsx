@@ -107,7 +107,7 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
           />
           <FieldArray name="options">
             {({ remove, push }) => (
-              <Flex direction="column" mb="8">
+              <Flex direction="column">
                 <Flex mb="2">
                   {values.type !== CardType.BLANK ? (
                     <Text w="75px" fontWeight="bold">
@@ -163,7 +163,8 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
                                 : touched.options
                             }
                           />
-                          {values.type !== CardType.TF &&
+                          {isEditing &&
+                          values.type !== CardType.TF &&
                           values.type !== CardType.BLANK ? (
                             <IconButton
                               ml="2"
@@ -183,6 +184,7 @@ export const CardInfo: React.FC<CardInfoProps> = ({ card, isEditingState }) => {
                 {values.type !== CardType.TF &&
                 values.type !== CardType.BLANK ? (
                   <Button
+                    mb="8"
                     onClick={() => push("")}
                     isDisabled={values.options.length >= 10}
                   >

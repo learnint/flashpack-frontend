@@ -113,7 +113,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
             />
             <FieldArray name="options">
               {({ remove, push }) => (
-                <Flex direction="column" mb="8">
+                <Flex direction="column">
                   <Flex mb="2">
                     {values.type !== CardType.BLANK ? (
                       <Text w="75px" fontWeight="bold">
@@ -186,6 +186,7 @@ export const CreateCard: React.FC<CreateCardProps> = ({ pack }) => {
                   {values.type !== CardType.TF &&
                   values.type !== CardType.BLANK ? (
                     <Button
+                      mb="8"
                       onClick={() => push("")}
                       isDisabled={values.options.length >= 10}
                     >
