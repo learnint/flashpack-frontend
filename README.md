@@ -1,59 +1,44 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+# Flashpack Frontend
 
-## Available Scripts
+## Technologies
 
-In the project directory, you can run:
+![image](https://user-images.githubusercontent.com/37840393/115788745-0c30a780-a392-11eb-90bb-c0b9d893c9a5.png)
+![image](https://user-images.githubusercontent.com/37840393/115789346-fff91a00-a392-11eb-83cf-93367aa4f188.png)
+![image](https://user-images.githubusercontent.com/37840393/115789195-be686f00-a392-11eb-8d60-ef4b7ebe7b83.png)
+![image](https://user-images.githubusercontent.com/37840393/115789730-96c5d680-a393-11eb-80d4-ed80e63da671.png) &nbsp;
+![image](https://user-images.githubusercontent.com/37840393/115789558-52d2d180-a393-11eb-82af-968eb7b5295c.png)
 
-### `npm start`
+- **React**: JavaScript library for building user interfaces
+- **TypeScript**: Superset of JavaScript that adds static type definitions
+- **React-Query**: Performant and powerful data synchronization for React
+- **Chakra-UI**: Simple, modular and accessible React component library
+- **Formik**: React form state library
 
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
+> Be sure to follow the [flashback-backend](https://github.com/learnint/flashpack-backend) **Installation** and **Usage** instructions first
 
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
+Clone the repository:
+```
+git clone https://github.com/learnint/flashpack-frontend
+```
+Change directory:
+```
+cd flashpack-frontend
+```
+Install dependencies:
+```
+npm i
+```
 
-### `npm test`
+## Usage
 
-Launches the test runner in the interactive watch mode.<br /> See the section
-about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+Build application:
+```
+npm run build
+```
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
-
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
-
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Serve application:
+```
+serve -s build
+```
+> Be sure you have [serve](https://www.npmjs.com/package/serve) installed
