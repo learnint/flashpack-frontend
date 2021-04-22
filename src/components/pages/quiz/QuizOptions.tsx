@@ -42,7 +42,12 @@ export const QuizOptions: React.FC<QuizOptionsProps> = ({
                 borderWidth="thin"
                 rounded="lg"
               >
-                <Radio w="full" p="5" value={option.id}>
+                <Radio
+                  w="full"
+                  p="5"
+                  value={option.id}
+                  isDisabled={isAnswerShown}
+                >
                   {option.text}
                 </Radio>
               </Box>
@@ -70,7 +75,12 @@ export const QuizOptions: React.FC<QuizOptionsProps> = ({
                 borderWidth="thin"
                 rounded="lg"
               >
-                <Checkbox w="full" p="5" value={option.id}>
+                <Checkbox
+                  w="full"
+                  p="5"
+                  value={option.id}
+                  isDisabled={isAnswerShown}
+                >
                   {option.text}
                 </Checkbox>
               </Box>
@@ -84,6 +94,7 @@ export const QuizOptions: React.FC<QuizOptionsProps> = ({
           value={answerInput}
           onChange={(e) => setAnswerInput(e.currentTarget.value)}
           placeholder="Answer"
+          isDisabled={isAnswerShown}
         />
       );
   }
