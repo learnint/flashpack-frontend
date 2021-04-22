@@ -71,7 +71,7 @@ export const App: React.FC = () => {
             <Quiz setProgress={setProgress} />
           </AuthorizedRoute>
           <AuthorizedRoute exact path="/">
-            Home
+            <Redirect to="/packs" />
           </AuthorizedRoute>
           <AuthorizedRoute path="*">
             <Redirect to="/" />

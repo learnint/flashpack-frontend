@@ -6,6 +6,7 @@ import {
   Button,
   IconButton,
   Progress,
+  HStack,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import { useAuth } from "auth";
@@ -43,15 +44,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           Flashpack
         </Heading>
         {!isQuizRoute && !isAnonRoute && !isMobile ? (
-          <Flex w="3xs" justifyContent="space-between" ml="16" pt="0.5">
-            <Heading
+          <HStack spacing="8" ml="16" pt="0.5">
+            {/* <Heading
               size="sm"
               color={location.pathname === "/" ? colorScheme : undefined}
             >
               <RouterLink to="/" replace={location.pathname === "/"}>
                 Home
               </RouterLink>
-            </Heading>
+            </Heading> */}
             <Heading
               size="sm"
               color={
@@ -77,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Groups
               </RouterLink>
             </Heading>
-          </Flex>
+          </HStack>
         ) : null}
         <Box ml="auto">
           {!isQuizRoute && !isAnonRoute ? (

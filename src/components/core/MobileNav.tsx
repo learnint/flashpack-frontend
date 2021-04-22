@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon, Flex, Text, Box } from "@chakra-ui/react";
-import { FaHome, FaUsers, FaLayerGroup } from "react-icons/fa";
+import { FaUsers, FaLayerGroup } from "react-icons/fa";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useColorScheme } from "theme";
 
@@ -10,7 +10,7 @@ export const MobileNav: React.FC = () => {
 
   return (
     <Flex mt="2">
-      <Box as={RouterLink} flex="1" to="/" replace={pathname === "/"}>
+      {/* <Box as={RouterLink} flex="1" to="/" replace={pathname === "/"}>
         <Flex direction="column" alignItems="center">
           <Icon
             as={FaHome}
@@ -20,7 +20,7 @@ export const MobileNav: React.FC = () => {
           />
           <Text color={pathname === "/" ? colorScheme : undefined}>Home</Text>
         </Flex>
-      </Box>
+      </Box> */}
       <Box as={RouterLink} flex="1" to="/packs" replace={pathname === "/packs"}>
         <Flex direction="column" alignItems="center">
           <Icon
