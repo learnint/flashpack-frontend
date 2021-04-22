@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, useMediaQuery } from "@chakra-ui/react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Redirect, Switch, useLocation } from "react-router-dom";
@@ -16,11 +16,18 @@ import {
 } from "components/pages";
 
 export const App: React.FC = () => {
+  const [progress, setProgress] = useState<number>(0);
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const location = useLocation();
   const isAnonRoute = ["/login", "/createAccount"].includes(location.pathname);
   const isQuizRoute = location.pathname.startsWith("/quiz");
+
+  useEffect(() => {
+    if (!isQuizRoute) {
+      setProgress(0);
+    }
+  }, [isQuizRoute]);
 
   return (
     <Flex w="100vw" h="100vh" direction="column">
@@ -28,6 +35,7 @@ export const App: React.FC = () => {
         isQuizRoute={isQuizRoute}
         isAnonRoute={isAnonRoute}
         isMobile={isMobile}
+        progress={progress}
       />
       <Flex
         px="4"
@@ -60,7 +68,7 @@ export const App: React.FC = () => {
             </GroupProvider>
           </AuthorizedRoute>
           <AuthorizedRoute path="/quiz/:packId">
-            <Quiz />
+            <Quiz setProgress={setProgress} />
           </AuthorizedRoute>
           <AuthorizedRoute exact path="/">
             Home

@@ -13,7 +13,7 @@ import { MdSettings } from "react-icons/md";
 import { useColorScheme } from "theme";
 
 interface BlockLinkProps {
-  to: string;
+  to: any;
   name: string;
   description?: string;
   onEditClick?: () => void;

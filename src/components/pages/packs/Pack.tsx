@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
   useHistory,
+  useLocation,
   useParams,
   useRouteMatch,
 } from "react-router-dom";
@@ -21,6 +22,7 @@ interface PackProps {
 }
 
 export const Pack: React.FC<PackProps> = ({ isAdmin, packs }) => {
+  const location = useLocation();
   const history = useHistory();
   const { path, url } = useRouteMatch();
   const { packId } = useParams<{ packId: string }>();
@@ -39,7 +41,9 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs }) => {
                   mb="2"
                   icon={<FaPlay />}
                   aria-label="Play Pack"
-                  onClick={() => history.push(`/quiz/${pack.id}`)}
+                  onClick={() =>
+                    history.push(`/quiz/${pack.id}`, { from: location })
+                  }
                 />
                 <Button
                   ml="2"

@@ -17,12 +17,14 @@ interface NavbarProps {
   isQuizRoute: boolean;
   isAnonRoute: boolean;
   isMobile: boolean;
+  progress: number;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   isQuizRoute,
   isAnonRoute,
   isMobile,
+  progress,
 }) => {
   const history = useHistory();
   const location = useLocation();
@@ -34,7 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {!isQuizRoute ? (
         <Box h="2" bgColor={colorScheme} />
       ) : (
-        <Progress hasStripe h="2" colorScheme="purple" value={66} />
+        <Progress hasStripe h="2" colorScheme="purple" value={progress} />
       )}
       <Flex px="4" py="2" alignItems="center">
         <Heading color={colorScheme} size="md">

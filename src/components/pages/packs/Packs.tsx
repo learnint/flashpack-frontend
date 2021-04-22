@@ -1,6 +1,12 @@
 import React from "react";
 import { Box, Button, Flex, Heading, Skeleton, Stack } from "@chakra-ui/react";
-import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { usePack } from "context";
 import { Group } from "models";
 import { useColorScheme } from "theme";
@@ -13,6 +19,7 @@ interface PacksProps {
 }
 
 export const Packs: React.FC<PacksProps> = ({ children, group }) => {
+  const location = useLocation();
   const history = useHistory();
   const { path, url } = useRouteMatch();
   const colorScheme = useColorScheme();
@@ -51,7 +58,11 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
             </Flex>
             {packs.map(({ id, name, description, cardCount }) => (
               <BlockLink
-                to={isAdmin ? `${url}/${id}` : `/quiz/${id}`}
+                to={
+                  isAdmin
+                    ? `${url}/${id}`
+                    : { pathname: `/quiz/${id}`, state: { from: location } }
+                }
                 name={name}
                 description={description}
                 onEditClick={
