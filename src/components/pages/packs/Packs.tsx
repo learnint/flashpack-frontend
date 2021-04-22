@@ -28,14 +28,18 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
 
   const isAdmin = group ? group.isAdmin : true;
 
-  if (!isPacksLoading && !isPacksError && packs) {
+  const filteredPacks = !isAdmin
+    ? packs?.filter((pack) => pack.cardCount > 0)
+    : packs;
+
+  if (!isPacksLoading && !isPacksError && filteredPacks) {
     return (
       <Switch>
         <Route path={`${path}/create`}>
           <CreatePack group={group} />
         </Route>
         <Route path={`${path}/:packId`}>
-          <Pack isAdmin={isAdmin} packs={packs} />
+          <Pack isAdmin={isAdmin} packs={filteredPacks} />
         </Route>
         <Route path={path}>
           <Stack w="full" maxW="container.lg">
@@ -56,7 +60,7 @@ export const Packs: React.FC<PacksProps> = ({ children, group }) => {
                 ) : null}
               </Flex>
             </Flex>
-            {packs.map(({ id, name, description, cardCount }) => (
+            {filteredPacks.map(({ id, name, description, cardCount }) => (
               <BlockLink
                 to={
                   isAdmin

@@ -44,6 +44,7 @@ export const Pack: React.FC<PackProps> = ({ isAdmin, packs }) => {
                   onClick={() =>
                     history.push(`/quiz/${pack.id}`, { from: location })
                   }
+                  isDisabled={pack.cardCount < 1}
                 />
                 <Button
                   ml="2"
