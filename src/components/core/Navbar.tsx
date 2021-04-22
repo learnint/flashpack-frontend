@@ -35,9 +35,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {!isQuizRoute ? (
-        <Box h="3" bgColor={colorScheme} />
+        <Box h="3" bgColor={colorScheme} flexShrink={0} />
       ) : (
-        <Progress hasStripe h="3" colorScheme="purple" value={progress} />
+        <Progress
+          hasStripe
+          h="3"
+          colorScheme="purple"
+          value={progress}
+          flexShrink={0}
+        />
       )}
       <Flex px="4" py="2" alignItems="center">
         <Heading color={colorScheme} size="md">
