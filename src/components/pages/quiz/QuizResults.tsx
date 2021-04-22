@@ -24,7 +24,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({ correct, total }) => {
   const percentage = Math.round((correct / total) * 1000) / 10;
 
   return (
-    <VStack w="full" maxW="container.sm">
+    <VStack w="full">
       <CircularProgress
         value={percentage}
         color={colorScheme}

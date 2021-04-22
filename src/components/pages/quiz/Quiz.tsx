@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Flex,
-  Heading,
-  Spinner,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading, Spinner, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useQueryPack } from "api";
 import { CardType, SetState } from "models";
@@ -45,7 +37,7 @@ export const Quiz: React.FC<QuizProps> = ({ setProgress }) => {
     }, []);
 
     return (
-      <Stack w="full" maxW="container.lg">
+      <Stack w="full" maxW="container.md">
         <Flex justifyContent="space-between" alignItems="center">
           <Heading color={colorScheme}>
             {pack.name} - {!isDone ? "Quiz" : "Results"}
@@ -56,71 +48,67 @@ export const Quiz: React.FC<QuizProps> = ({ setProgress }) => {
             </Text>
           ) : null}
         </Flex>
-        <VStack>
-          {!isDone ? (
-            <Stack w="full" maxW="3xl">
-              <QuizCard card={card} />
-              <QuizOptions
-                card={card}
-                answerInputState={[answerInput, setAnswerInput]}
-                isAnswerShown={isAnswerShown}
-              />
-              {isAnswerShown ? (
-                <Button
-                  w="full"
-                  onClick={() => {
-                    const nextIndex = cardIndex + 1;
-                    setProgress((nextIndex / pack.cards.length) * 100);
-                    if (nextIndex < pack.cards.length) {
-                      setCardIndex(nextIndex);
-                    } else {
-                      setIsDone(true);
-                    }
-                    setIsAnswerShown(false);
-                    setAnswerInput(undefined);
-                    closeAll();
-                  }}
-                >
-                  {cardIndex + 1 < pack.cards.length
-                    ? "Next Card"
-                    : "View Results"}
-                </Button>
-              ) : (
-                <Button
-                  w="full"
-                  disabled={!answerInput || answerInput.length < 1}
-                  onClick={() => {
-                    let isCorrect: boolean;
-                    if (Array.isArray(answerInput)) {
-                      isCorrect =
-                        JSON.stringify(answerInput.sort()) ===
-                        JSON.stringify(answerIds.sort());
-                    } else if (card.type === CardType.BLANK) {
-                      isCorrect =
-                        answerInput?.toLowerCase().trim() ===
-                        card.options[0].text.toLowerCase().trim();
-                    } else {
-                      isCorrect = answerInput === answerIds[0];
-                    }
-                    toast({
-                      title: isCorrect ? "Correct!" : "Incorrect",
-                      status: isCorrect ? "success" : "error",
-                      duration: 3000,
-                    });
-                    if (isCorrect) {
-                      setCorrectAmount(correctAmount + 1);
-                    }
-                    setIsAnswerShown(true);
-                  }}
-                >
-                  Submit Answer
-                </Button>
-              )}
-            </Stack>
-          ) : (
-            <QuizResults correct={correctAmount} total={pack.cards.length} />
-          )}
-        </VStack>
+        {!isDone ? (
+          <>
+            <QuizCard card={card} />
+            <QuizOptions
+              card={card}
+              answerInputState={[answerInput, setAnswerInput]}
+              isAnswerShown={isAnswerShown}
+            />
+            {isAnswerShown ? (
+              <Button
+                onClick={() => {
+                  const nextIndex = cardIndex + 1;
+                  setProgress((nextIndex / pack.cards.length) * 100);
+                  if (nextIndex < pack.cards.length) {
+                    setCardIndex(nextIndex);
+                  } else {
+                    setIsDone(true);
+                  }
+                  setIsAnswerShown(false);
+                  setAnswerInput(undefined);
+                  closeAll();
+                }}
+              >
+                {cardIndex + 1 < pack.cards.length
+                  ? "Next Card"
+                  : "View Results"}
+              </Button>
+            ) : (
+              <Button
+                disabled={!answerInput || answerInput.length < 1}
+                onClick={() => {
+                  let isCorrect: boolean;
+                  if (Array.isArray(answerInput)) {
+                    isCorrect =
+                      JSON.stringify(answerInput.sort()) ===
+                      JSON.stringify(answerIds.sort());
+                  } else if (card.type === CardType.BLANK) {
+                    isCorrect =
+                      answerInput?.toLowerCase().trim() ===
+                      card.options[0].text.toLowerCase().trim();
+                  } else {
+                    isCorrect = answerInput === answerIds[0];
+                  }
+                  toast({
+                    title: isCorrect ? "Correct!" : "Incorrect",
+                    status: isCorrect ? "success" : "error",
+                    duration: 3000,
+                  });
+                  if (isCorrect) {
+                    setCorrectAmount(correctAmount + 1);
+                  }
+                  setIsAnswerShown(true);
+                }}
+              >
+                Submit Answer
+              </Button>
+            )}
+          </>
+        ) : (
+          <QuizResults correct={correctAmount} total={pack.cards.length} />
+        )}
       </Stack>
     );
   }
