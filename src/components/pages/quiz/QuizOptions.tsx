@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Alert,
   Box,
   Checkbox,
   CheckboxGroup,
@@ -90,12 +91,19 @@ export const QuizOptions: React.FC<QuizOptionsProps> = ({
       );
     case CardType.BLANK:
       return (
-        <Textarea
-          value={answerInput}
-          onChange={(e) => setAnswerInput(e.currentTarget.value)}
-          placeholder="Answer"
-          isDisabled={isAnswerShown}
-        />
+        <>
+          {isAnswerShown ? (
+            <Alert status="success" variant="solid" rounded="lg">
+              Correct Answer: {options[0].text}
+            </Alert>
+          ) : null}
+          <Textarea
+            value={answerInput}
+            onChange={(e) => setAnswerInput(e.currentTarget.value)}
+            placeholder="Answer"
+            isDisabled={isAnswerShown}
+          />
+        </>
       );
   }
 };
