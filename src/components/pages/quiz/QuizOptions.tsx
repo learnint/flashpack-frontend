@@ -40,6 +40,13 @@ export const QuizOptions: React.FC<QuizOptionsProps> = ({
                       : undefined
                     : undefined
                 }
+                color={
+                  isAnswerShown
+                    ? option.isCorrect
+                      ? "black"
+                      : undefined
+                    : undefined
+                }
                 borderWidth="thin"
                 rounded="lg"
               >
@@ -70,6 +77,13 @@ export const QuizOptions: React.FC<QuizOptionsProps> = ({
                   isAnswerShown
                     ? option.isCorrect
                       ? "green.400"
+                      : undefined
+                    : undefined
+                }
+                color={
+                  isAnswerShown
+                    ? option.isCorrect
+                      ? "black"
                       : undefined
                     : undefined
                 }
