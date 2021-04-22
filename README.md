@@ -19,7 +19,7 @@
 
 Clone the repository:
 ```
-git clone https://github.com/learnint/flashpack-frontend
+git clone https://github.com/learnint/flashpack-frontend.git
 ```
 Change directory:
 ```
