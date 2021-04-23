@@ -1,5 +1,7 @@
 # Flashpack Frontend
 
+This frontend web application is directed toward teachers and students to produce flashcards for themselves or share in groups 
+
 ## Technologies
 
 ![image](https://user-images.githubusercontent.com/37840393/115788745-0c30a780-a392-11eb-90bb-c0b9d893c9a5.png)
