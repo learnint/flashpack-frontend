@@ -29,6 +29,7 @@ export const useMutateDeleteCard = () => {
   return useMutation<Card, Error, string>((request) => deleteCard(request), {
     onSuccess: () => {
       queryClient.invalidateQueries("cards");
+      queryClient.invalidateQueries("packs");
     },
   });
 };

@@ -41,6 +41,7 @@ export const useMutateUpdateCard = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("cards");
+        queryClient.invalidateQueries("packs");
       },
     }
   );

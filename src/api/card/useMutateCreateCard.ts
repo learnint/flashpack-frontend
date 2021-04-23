@@ -39,6 +39,7 @@ export const useMutateCreateCard = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("cards");
+        queryClient.invalidateQueries("packs");
       },
     }
   );
